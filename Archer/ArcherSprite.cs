@@ -54,11 +54,13 @@ namespace Archer
         private Rectangle walkFrontSource;
         private Rectangle walkBackSource;
         private Rectangle walkSideSource;
-        private Rectangle shootFrontSource;
-        private Rectangle shootBackSource;
-        private Rectangle shootSideSource = new Rectangle(7,6,16,25);
+        private Rectangle shootFrontSource = new Rectangle(41,4,16,26);
+        private Rectangle shootBackSource = new Rectangle(37,7,22,24);
+        private Rectangle shootSideSource = new Rectangle(37,6,21,25);
 
         private double animTimer;
+        private double shootTimer;
+        bool shootFirstTime = true;
         private short animFrame;
 
         /// <summary>
@@ -89,23 +91,44 @@ namespace Archer
 
             //get input controls
             // Apply keyboard movement
-            if (keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W))
+            if (keyboardState.IsKeyDown(Keys.Up))
             {
                 direction = Direction.Up;
+                flipped = false;
             }
-            if (keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S))
+            if (keyboardState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.Down;
+                flipped = false;
             }
-            if (keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.Left;
                 flipped = true;
             }
-            if (keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.Right;
                 flipped = false;
+            }
+            if(keyboardState.IsKeyDown(Keys.Space))
+            {
+                //space shoots the bow
+                currAction = Action.Shoot;
+                if (shootFirstTime)
+                {
+                    shootTimer = gameTime.TotalGameTime.TotalSeconds;
+                    shootFirstTime = false;
+                }
+            }
+            if(keyboardState.IsKeyUp(Keys.Space))
+            {
+                //reset shoot variables
+                currAction = Action.Idle;
+                shootSideSource.X = 37;
+                shootFrontSource.X = 41;
+                shootBackSource.X = 37;
+                shootFirstTime = true;
             }
 
             //update texture and position
@@ -166,6 +189,19 @@ namespace Archer
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            animTimer = gameTime.TotalGameTime.TotalSeconds;
+            if(animTimer-shootTimer >= 0.7 && currAction == Action.Shoot)
+            {
+                animFrame++;
+                if (animFrame > 1)
+                {
+                    shootSideSource.X = 67;
+                    shootFrontSource.X = 72;
+                    shootBackSource.X = 69;
+                }
+                animTimer -= 1;
+            }
+
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
         }
