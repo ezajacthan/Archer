@@ -51,17 +51,19 @@ namespace Archer
         private Rectangle idleSideSource = new Rectangle(8,7,15, 23);
         private Rectangle idleFrontSource = new Rectangle(9,7,13,23);
         private Rectangle idleBackSource = new Rectangle(9,8,13,22);
-        private Rectangle walkFrontSource;
-        private Rectangle walkBackSource;
-        private Rectangle walkSideSource;
+        private Rectangle walkFrontSource = new Rectangle(8,5,14,25);
+        private Rectangle walkBackSource = new Rectangle(6,7,17,24);
+        private Rectangle walkSideSource = new Rectangle(8,6,15,23);
         private Rectangle shootFrontSource = new Rectangle(41,4,16,26);
         private Rectangle shootBackSource = new Rectangle(37,7,22,24);
         private Rectangle shootSideSource = new Rectangle(37,6,21,25);
 
-        private double animTimer;
+        private double walkTimer;
         private double shootTimer;
-        bool shootFirstTime = true;
-        private short animFrame;
+        private bool shootFirstTime = true;
+        private bool walkFirstTime = true;
+        private short shootAnimFrame;
+        private short walkAnimFrame;
 
         /// <summary>
         /// Load all of the spritesheets for the different animations
@@ -81,6 +83,19 @@ namespace Archer
         }
 
         /// <summary>
+        /// helper function to contain walk animation logic
+        /// </summary>
+        private void Walk(GameTime gameTime)
+        {
+            currAction = Action.Walk;
+            if(walkFirstTime)
+            {
+                walkTimer = gameTime.TotalGameTime.TotalSeconds;
+                walkFirstTime = false;
+            }
+        }
+
+        /// <summary>
         /// Update the Archer sprite
         /// </summary>
         /// <param name="gameTime">game time manager to get elapsed time</param>
@@ -95,20 +110,24 @@ namespace Archer
             {
                 direction = Direction.Up;
                 flipped = false;
+                Walk(gameTime);
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.Down;
+                Walk(gameTime);
                 flipped = false;
             }
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.Left;
+                Walk(gameTime);
                 flipped = true;
             }
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.Right;
+                Walk(gameTime);
                 flipped = false;
             }
             if(keyboardState.IsKeyDown(Keys.Space))
@@ -121,18 +140,30 @@ namespace Archer
                     shootFirstTime = false;
                 }
             }
-            if(keyboardState.IsKeyUp(Keys.Space))
+            if (keyboardState.IsKeyUp(Keys.Space) && keyboardState.IsKeyUp(Keys.Up)
+                && keyboardState.IsKeyUp(Keys.Down) && keyboardState.IsKeyUp(Keys.Left) && keyboardState.IsKeyUp(Keys.Right))
             {
-                //reset shoot variables
+                //reset action
                 currAction = Action.Idle;
+            }
+            if(keyboardState.IsKeyUp(Keys.Space))
+            { 
                 shootSideSource.X = 37;
                 shootFrontSource.X = 41;
                 shootBackSource.X = 37;
                 shootFirstTime = true;
             }
+            if (keyboardState.IsKeyUp(Keys.Up) && keyboardState.IsKeyUp(Keys.Down) 
+                && keyboardState.IsKeyUp(Keys.Left) && keyboardState.IsKeyUp(Keys.Right))
+            {
+                walkFirstTime = true;
+                walkSideSource.X = 8;
+                walkFrontSource.X = 8;
+                walkBackSource.X = 6;
+            }
 
-            //update texture and position
-            switch (currAction)
+                //update texture and position
+                switch (currAction)
             {
                 case (Action.Idle):
                     if (direction == Direction.Up)
@@ -189,17 +220,26 @@ namespace Archer
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            animTimer = gameTime.TotalGameTime.TotalSeconds;
-            if(animTimer-shootTimer >= 0.7 && currAction == Action.Shoot)
+            double shootTimerAfter = gameTime.TotalGameTime.TotalSeconds;
+            double walkAnimTimer = gameTime.TotalGameTime.TotalSeconds;
+            if(shootTimerAfter-shootTimer >= 0.7 && currAction == Action.Shoot)
             {
-                animFrame++;
-                if (animFrame > 1)
+                shootAnimFrame++;
+                if (shootAnimFrame > 1)
                 {
                     shootSideSource.X = 67;
                     shootFrontSource.X = 72;
                     shootBackSource.X = 69;
                 }
-                animTimer -= 1;
+            }
+            if (walkAnimTimer-walkTimer >= 0.15 && currAction == Action.Walk)
+            {
+                walkAnimFrame++;
+                if (walkAnimFrame > 5) walkAnimFrame = 0;
+                walkSideSource.X = 32 * walkAnimFrame + 8;
+                walkFrontSource.X = 32 * walkAnimFrame + 8;
+                walkBackSource.X = 32* walkAnimFrame +8;
+                walkTimer += 0.15;
             }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
