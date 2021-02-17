@@ -21,6 +21,7 @@ namespace Archer
         Idle,
         Walk,
         Shoot,
+        Run,
     }
 
     public class ArcherSprite
@@ -47,6 +48,7 @@ namespace Archer
         private Action currAction = Action.Idle;
         private bool flipped;
         private float scaling = 2.5f;
+        private float moveFrameRate = 0.15f;
 
         private Rectangle idleSideSource = new Rectangle(8,7,15, 23);
         private Rectangle idleFrontSource = new Rectangle(9,7,13,23);
@@ -87,8 +89,24 @@ namespace Archer
         /// </summary>
         private void Walk(GameTime gameTime)
         {
+            moveFrameRate = 0.15f;
             currAction = Action.Walk;
             if(walkFirstTime)
+            {
+                walkTimer = gameTime.TotalGameTime.TotalSeconds;
+                walkFirstTime = false;
+            }
+        }
+
+        /// <summary>
+        /// Helper function to contain the run animation logic
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void Run(GameTime gameTime)
+        {
+            moveFrameRate = .03f;
+            currAction = Action.Run;
+            if (walkFirstTime)
             {
                 walkTimer = gameTime.TotalGameTime.TotalSeconds;
                 walkFirstTime = false;
@@ -110,24 +128,52 @@ namespace Archer
             {
                 direction = Direction.Up;
                 flipped = false;
-                Walk(gameTime);
+                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    Run(gameTime);
+                }
+                else
+                {
+                    Walk(gameTime);
+                }
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 direction = Direction.Down;
-                Walk(gameTime);
+                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    Run(gameTime);
+                }
+                else
+                {
+                    Walk(gameTime);
+                }
                 flipped = false;
             }
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 direction = Direction.Left;
-                Walk(gameTime);
+                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    Run(gameTime);
+                }
+                else
+                {
+                    Walk(gameTime);
+                }
                 flipped = true;
             }
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 direction = Direction.Right;
-                Walk(gameTime);
+                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    Run(gameTime);
+                }
+                else
+                {
+                    Walk(gameTime);
+                }
                 flipped = false;
             }
             if(keyboardState.IsKeyDown(Keys.Space))
@@ -199,6 +245,23 @@ namespace Archer
                         source = walkSideSource;
                     }
                     break;
+                case (Action.Run):
+                    if (direction == Direction.Up)
+                    {
+                        drawTexture = walkTextureBack;
+                        source = walkBackSource;
+                    }
+                    else if (direction == Direction.Down)
+                    {
+                        drawTexture = walkTextureFront;
+                        source = walkFrontSource;
+                    }
+                    else
+                    {
+                        drawTexture = walkTextureSide;
+                        source = walkSideSource;
+                    }
+                    break;
                 case (Action.Shoot):
                     if (direction == Direction.Up)
                     {
@@ -232,14 +295,14 @@ namespace Archer
                     shootBackSource.X = 69;
                 }
             }
-            if (walkAnimTimer-walkTimer >= 0.15 && currAction == Action.Walk)
+            else if (walkAnimTimer-walkTimer >= moveFrameRate && (currAction == Action.Walk || currAction == Action.Run))
             {
                 walkAnimFrame++;
                 if (walkAnimFrame > 5) walkAnimFrame = 0;
                 walkSideSource.X = 32 * walkAnimFrame + 8;
                 walkFrontSource.X = 32 * walkAnimFrame + 8;
                 walkBackSource.X = 32* walkAnimFrame +8;
-                walkTimer += 0.15;
+                walkTimer += moveFrameRate;
             }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
