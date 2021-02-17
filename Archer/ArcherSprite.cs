@@ -43,11 +43,13 @@ namespace Archer
         private Texture2D shootTextureSide;
 
         private Vector2 position = new Vector2(200, 200);
+        private double velocity = 0;
+        private double acceleration = 0;
 
         private Direction direction = Direction.Right;
         private Action currAction = Action.Idle;
         private bool flipped;
-        private float scaling = 2.5f;
+        private float scaling = 1.5f;
         private float moveFrameRate = 0.15f;
 
         private Rectangle idleSideSource = new Rectangle(8,7,15, 23);
@@ -64,6 +66,10 @@ namespace Archer
         private double shootTimer;
         private bool shootFirstTime = true;
         private bool walkFirstTime = true;
+        private bool stopUp = false;
+        private bool stopDown = false;
+        private bool stopLeft = false;
+        private bool stopRight = false;
         private short shootAnimFrame;
         private short walkAnimFrame;
 
@@ -87,14 +93,38 @@ namespace Archer
         /// <summary>
         /// helper function to contain walk animation logic
         /// </summary>
-        private void Walk(GameTime gameTime)
+        private void Walk(GameTime gameTime, Direction dir)
         {
             moveFrameRate = 0.15f;
-            currAction = Action.Walk;
+            currAction = Action.Walk; 
             if(walkFirstTime)
             {
                 walkTimer = gameTime.TotalGameTime.TotalSeconds;
                 walkFirstTime = false;
+            }
+
+            switch(dir)
+            {
+                case Direction.Down:
+                    acceleration = 0;
+                    velocity = 3f;
+                    position.Y = position.Y + (float)velocity*(float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    break;
+                case Direction.Up:
+                    acceleration = 0;
+                    velocity = 3f;
+                    position.Y = position.Y - (float) velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    break;
+                case Direction.Right:
+                    acceleration = 0;
+                    velocity = 3f;
+                    position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    break;
+                case Direction.Left:
+                    acceleration = 0;
+                    velocity = 3f;
+                    position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    break;
             }
         }
 
@@ -102,14 +132,36 @@ namespace Archer
         /// Helper function to contain the run animation logic
         /// </summary>
         /// <param name="gameTime"></param>
-        private void Run(GameTime gameTime)
+        private void Run(GameTime gameTime, Direction dir)
         {
-            moveFrameRate = .03f;
+            acceleration = 1.66666f;
+            velocity = velocity + acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds*100;
+            if (velocity > 40) velocity = 40;
+
+            moveFrameRate -= 0.005f;
+            if (moveFrameRate < 0.03) moveFrameRate = 0.03f;
             currAction = Action.Run;
             if (walkFirstTime)
             {
                 walkTimer = gameTime.TotalGameTime.TotalSeconds;
                 walkFirstTime = false;
+            }
+
+            //update position based on velocity
+            switch (dir)
+            {
+                case Direction.Down:
+                    position.Y = position.Y + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    break;
+                case Direction.Up:
+                    position.Y = position.Y - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    break;
+                case Direction.Right:
+                    position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    break;
+                case Direction.Left:
+                    position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    break;                   
             }
         }
 
@@ -124,61 +176,90 @@ namespace Archer
 
             //get input controls
             // Apply keyboard movement
-            if (keyboardState.IsKeyDown(Keys.Up))
+            if (keyboardState.IsKeyDown(Keys.Up) && !stopUp)
             {
                 direction = Direction.Up;
                 flipped = false;
+                stopDown = true;
+                stopLeft = true;
+                stopRight = true;
                 if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
                 {
-                    Run(gameTime);
+                    Run(gameTime, direction);
                 }
                 else
                 {
-                    Walk(gameTime);
+                    Walk(gameTime, direction);
                 }
             }
-            if (keyboardState.IsKeyDown(Keys.Down))
+            else if (keyboardState.IsKeyDown(Keys.Down) && !stopDown)
             {
                 direction = Direction.Down;
                 if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
                 {
-                    Run(gameTime);
+                    Run(gameTime, direction);
                 }
                 else
                 {
-                    Walk(gameTime);
+                    Walk(gameTime, direction);
                 }
                 flipped = false;
+                stopUp = true;
+                stopLeft = true;
+                stopRight = true;
             }
-            if (keyboardState.IsKeyDown(Keys.Left))
+            else if (keyboardState.IsKeyDown(Keys.Left) && !stopLeft)
             {
+                stopDown = true;
+                stopUp = true;
+                stopRight = true;
                 direction = Direction.Left;
                 if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
                 {
-                    Run(gameTime);
+                    Run(gameTime, direction);
                 }
                 else
                 {
-                    Walk(gameTime);
+                    Walk(gameTime, direction);
                 }
                 flipped = true;
             }
-            if (keyboardState.IsKeyDown(Keys.Right))
+            else if (keyboardState.IsKeyDown(Keys.Right) && !stopRight)
             {
+                stopDown = true;
+                stopLeft = true;
+                stopUp = true;
                 direction = Direction.Right;
                 if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
                 {
-                    Run(gameTime);
+                    Run(gameTime, direction);
                 }
                 else
                 {
-                    Walk(gameTime);
+                    Walk(gameTime, direction);
                 }
                 flipped = false;
             }
+            else
+            {
+                stopDown = false ;
+                stopLeft = false;
+                stopRight = false;
+                stopUp = false;
+            }
+
             if(keyboardState.IsKeyDown(Keys.Space))
             {
                 //space shoots the bow
+
+                //Can't move while shooting
+                stopDown = true;
+                stopLeft = true;
+                stopRight = true;
+                stopUp = true;
+                acceleration = 0;
+                velocity = 0;
+
                 currAction = Action.Shoot;
                 if (shootFirstTime)
                 {
@@ -191,6 +272,8 @@ namespace Archer
             {
                 //reset action
                 currAction = Action.Idle;
+                acceleration = 0;
+                velocity = 0;
             }
             if(keyboardState.IsKeyUp(Keys.Space))
             { 
@@ -207,9 +290,20 @@ namespace Archer
                 walkFrontSource.X = 8;
                 walkBackSource.X = 6;
             }
+            if (keyboardState.IsKeyUp(Keys.Up) && keyboardState.IsKeyUp(Keys.Down))
+            {
+                acceleration = 0;
+                velocity = 0;
+            }
+            if (keyboardState.IsKeyUp(Keys.Right) && keyboardState.IsKeyUp(Keys.Left))
+            {
+                acceleration= 0;
+                velocity= 0;
+            }
 
-                //update texture and position
-                switch (currAction)
+
+            //update texture info
+            switch (currAction)
             {
                 case (Action.Idle):
                     if (direction == Direction.Up)
