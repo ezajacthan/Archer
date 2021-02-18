@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostIce_all.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/ghostIce_all.xnb","TextureProcessor","Texture2DContent",4168,110677,0.4956164
 "C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-back-weapon.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/hero-attack-back-weapon.xnb","TextureProcessor","Texture2DContent",1133,12373,0.3191738
 "C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-front-weapon.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/hero-attack-front-weapon.xnb","TextureProcessor","Texture2DContent",1194,12373,0.0093396
 "C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-side-weapon.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/hero-attack-side-weapon.xnb","TextureProcessor","Texture2DContent",1219,12373,0.0100661

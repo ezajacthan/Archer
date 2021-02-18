@@ -10,6 +10,7 @@ namespace Archer
         private SpriteBatch _spriteBatch;
 
         private ArcherSprite archerSprite;
+        private IceGhostSprite ghostSprite;
 
         public ArcherGame()
         {
@@ -22,6 +23,7 @@ namespace Archer
         {
             // TODO: Add your initialization logic here
             archerSprite = new ArcherSprite();
+            ghostSprite = new IceGhostSprite();
 
             base.Initialize();
         }
@@ -32,6 +34,7 @@ namespace Archer
 
             // TODO: use this.Content to load your game content here
             archerSprite.LoadContent(Content);
+            ghostSprite.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -41,6 +44,7 @@ namespace Archer
 
             // TODO: Add your update logic here
             archerSprite.Update(gameTime);
+            ghostSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -51,6 +55,7 @@ namespace Archer
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            ghostSprite.Draw(gameTime, _spriteBatch);
             archerSprite.Draw(gameTime, _spriteBatch);
             _spriteBatch.End();
 
