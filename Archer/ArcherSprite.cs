@@ -44,6 +44,7 @@ namespace Archer
         private Texture2D shootTextureFront;
         private Texture2D shootTextureSide;
         private Texture2D arrowTexture;
+        private Texture2D debugTexture;
 
         private Vector2 position = new Vector2(200, 200);
         private double velocity = 0;
@@ -98,7 +99,8 @@ namespace Archer
             shootTextureSide = content.Load<Texture2D>("hero-attack-side-weapon");
             shootSound = content.Load<SoundEffect>("archerShoot");
             arrowTexture = content.Load<Texture2D>("arrow");
-        }
+            debugTexture = content.Load<Texture2D>("debug");
+    }
 
         /// <summary>
         /// helper function to contain walk animation logic
@@ -445,6 +447,8 @@ namespace Archer
             foreach (ArrowSprite arrow in arrows)
             {
                 arrow.Draw(spriteBatch);
+                Rectangle debugBounds = new Rectangle((int)arrow.Bounds.X, (int)arrow.Bounds.Y, (int)arrow.Bounds.Width, (int)arrow.Bounds.Height);
+                spriteBatch.Draw(debugTexture, debugBounds, Color.White);
             }
             spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
         }

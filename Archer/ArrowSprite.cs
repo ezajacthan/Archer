@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Archer.Collisions;
 
 namespace Archer
 {
     public class ArrowSprite
     {
+        private BoundingRectangle hitbox;
+
+        /// <summary>
+        /// Property to get the hitbox of the sprite
+        /// </summary>
+        public BoundingRectangle Bounds => hitbox;
+
         /// <summary>
         /// Propoerty to hold the position of the sprite
         /// </summary>
@@ -39,6 +47,14 @@ namespace Archer
             Flipped = flip;
             Texture = texture;
             Position = pos;
+            if (this.Direction == Direction.Down || this.Direction == Direction.Up)
+            {
+                hitbox = new BoundingRectangle(Position,5,19);
+            }
+            else
+            {
+                hitbox = new BoundingRectangle(Position, 19, 5);
+            }
         }
 
         /// <summary>
@@ -51,15 +67,23 @@ namespace Archer
             {
                 case Direction.Down:
                     Position += new Vector2(0, 1) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    hitbox.X = Position.X-7;
+                    hitbox.Y = Position.Y-28;
                     break;
                 case Direction.Up:
                     Position += new Vector2(-0,-1) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    hitbox.X = Position.X;
+                    hitbox.Y = Position.Y+7;
                     break;
                 case Direction.Right:
                     Position += new Vector2(1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    hitbox.X = Position.X - 28;
+                    hitbox.Y = Position.Y;
                     break;
                 case Direction.Left:
                     Position += new Vector2(-1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    hitbox.X = Position.X+7;
+                    hitbox.Y = Position.Y-7;
                     break;
             }
         }

@@ -35,6 +35,7 @@ namespace Archer
             // TODO: use this.Content to load your game content here
             archerSprite.LoadContent(Content);
             ghostSprite.LoadContent(Content);
+            
         }
 
         protected override void Update(GameTime gameTime)
