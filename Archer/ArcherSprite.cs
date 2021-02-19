@@ -11,10 +11,10 @@ namespace Archer
 {
     public enum Direction
     {
-        Down,
-        Right,
-        Up,
-        Left,
+        Down = 2,
+        Right = 1,
+        Up = 4,
+        Left = 3,
     }
 
     public enum Action
@@ -43,6 +43,7 @@ namespace Archer
         private Texture2D shootTextureBack;
         private Texture2D shootTextureFront;
         private Texture2D shootTextureSide;
+        private Texture2D arrowTexture;
 
         private Vector2 position = new Vector2(200, 200);
         private double velocity = 0;
@@ -72,10 +73,13 @@ namespace Archer
         private bool stopDown = false;
         private bool stopLeft = false;
         private bool stopRight = false;
+        private bool didShoot;
+        private bool canShoot;
         private short shootAnimFrame;
         private short walkAnimFrame;
 
         private SoundEffect shootSound;
+        private Queue<ArrowSprite> arrows = new Queue<ArrowSprite>();
 
         /// <summary>
         /// Load all of the spritesheets for the different animations
@@ -93,6 +97,7 @@ namespace Archer
             shootTextureBack = content.Load<Texture2D>("hero-attack-back-weapon");
             shootTextureSide = content.Load<Texture2D>("hero-attack-side-weapon");
             shootSound = content.Load<SoundEffect>("archerShoot");
+            arrowTexture = content.Load<Texture2D>("arrow");
         }
 
         /// <summary>
@@ -179,6 +184,26 @@ namespace Archer
             gamePadState = GamePad.GetState(0);
             priorKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
+
+            foreach (ArrowSprite arrow in arrows)
+            {
+                arrow.Update(gameTime);
+            }
+
+            if (didShoot)
+            {
+                //remove off-screen arrows
+                Vector2 currArrowPos = arrows.Peek().Position;
+                if (currArrowPos.X < 0 || currArrowPos.X > 800
+                    || currArrowPos.Y < 0 || currArrowPos.Y > 480)
+                {
+                    arrows.Dequeue();
+                    if (arrows.Count == 0)
+                    {
+                        didShoot = false;
+                    }
+                }
+            }
 
             //get input controls
             // Apply keyboard movement
@@ -269,6 +294,7 @@ namespace Archer
                 currAction = Action.Shoot;
                 if (shootFirstTime)
                 {
+                    didShoot = false;
                     shootTimer = gameTime.TotalGameTime.TotalSeconds;
                     shootFirstTime = false;
                 }
@@ -283,9 +309,14 @@ namespace Archer
             }
             if(keyboardState.IsKeyUp(Keys.Space))
             { 
-                if(priorKeyboardState.IsKeyDown(Keys.Space))
+                if(priorKeyboardState.IsKeyDown(Keys.Space) && canShoot)
                 {
+                    canShoot = false;
                     shootSound.Play();
+                    Vector2 arrowPosition = new Vector2(position.X + 25, position.Y + 16);
+                    ArrowSprite newArrow = new ArrowSprite(direction, flipped, arrowTexture, arrowPosition);
+                    arrows.Enqueue(newArrow);
+                    didShoot = true;
                 }
                 shootSideSource.X = 37;
                 shootFrontSource.X = 41;
@@ -394,6 +425,7 @@ namespace Archer
                 shootAnimFrame++;
                 if (shootAnimFrame > 1)
                 {
+                    canShoot = true;
                     shootSideSource.X = 67;
                     shootFrontSource.X = 72;
                     shootBackSource.X = 69;
@@ -410,6 +442,10 @@ namespace Archer
             }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            foreach (ArrowSprite arrow in arrows)
+            {
+                arrow.Draw(spriteBatch);
+            }
             spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
         }
     }

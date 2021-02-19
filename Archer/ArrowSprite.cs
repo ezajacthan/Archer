@@ -6,10 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Archer
 {
-    public class FireballSprite
+    public class ArrowSprite
     {
-        private Rectangle sourceRectangle = new Rectangle(21,30,76,48);
-
         /// <summary>
         /// Propoerty to hold the position of the sprite
         /// </summary>
@@ -35,7 +33,7 @@ namespace Archer
         /// </summary>
         /// <param name="dir">direction the sprite should face</param>
         /// <param name="flip">true if the sprite should be flipped, otherwise false</param>
-        public FireballSprite(Direction dir, bool flip, Texture2D texture, Vector2 pos)
+        public ArrowSprite(Direction dir, bool flip, Texture2D texture, Vector2 pos)
         {
             Direction = dir;
             Flipped = flip;
@@ -47,22 +45,29 @@ namespace Archer
         /// updates the sprite
         /// </summary>
         /// <param name="gameTime">the game time manager</param>
-        public void Update (GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            if(Flipped)
+            switch (Direction)
             {
-                Position += new Vector2(-1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                Position += new Vector2(1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                case Direction.Down:
+                    Position += new Vector2(0, 1) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
+                case Direction.Up:
+                    Position += new Vector2(-0,-1) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
+                case Direction.Right:
+                    Position += new Vector2(1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
+                case Direction.Left:
+                    Position += new Vector2(-1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             SpriteEffects spriteEffect = (!Flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spriteBatch.Draw(Texture, Position, sourceRectangle, Color.LightSteelBlue, 0, new Vector2(0, 0),.25f, spriteEffect, 0);
+            spriteBatch.Draw(Texture, Position, null, Color.LightSteelBlue, (int)Direction * MathHelper.PiOver2, new Vector2(0, 0), 1.5f, spriteEffect, 0);
         }
     }
 }
