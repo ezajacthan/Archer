@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Archer.Collisions;
 
 namespace Archer
 {
@@ -33,6 +34,8 @@ namespace Archer
 
         private Texture2D drawTexture;
         private Rectangle source;
+        private BoundingRectangle hitbox = new BoundingRectangle(206,208,15,23);
+        public BoundingRectangle Bounds => hitbox;
 
         private Texture2D idleTextureBack;
         private Texture2D idleTextureFront;
@@ -121,21 +124,25 @@ namespace Archer
                     acceleration = 0;
                     velocity = 3f;
                     position.Y = position.Y + (float)velocity*(float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.Y = position.Y + 8;
                     break;
                 case Direction.Up:
                     acceleration = 0;
                     velocity = 3f;
                     position.Y = position.Y - (float) velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.Y = position.Y + 8;
                     break;
                 case Direction.Right:
                     acceleration = 0;
                     velocity = 3f;
                     position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.X = position.X + 6;
                     break;
                 case Direction.Left:
                     acceleration = 0;
                     velocity = 3f;
                     position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.X = position.X + 6;
                     break;
             }
         }
@@ -164,15 +171,19 @@ namespace Archer
             {
                 case Direction.Down:
                     position.Y = position.Y + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.Y = position.Y + 8;
                     break;
                 case Direction.Up:
                     position.Y = position.Y - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.Y = position.Y + 8;
                     break;
                 case Direction.Right:
                     position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.X = position.X + 6;
                     break;
                 case Direction.Left:
                     position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.X = position.X + 6;
                     break;                   
             }
         }
@@ -353,16 +364,22 @@ namespace Archer
                     {
                         drawTexture = idleTextureBack;
                         source = idleBackSource;
+                        hitbox.Width = idleBackSource.Width;
+                        hitbox.Height = idleBackSource.Height;
                     }
                     else if (direction == Direction.Down)
                     {
                         drawTexture = idleTextureFront;
                         source = idleFrontSource;
+                        hitbox.Width = idleFrontSource.Width;
+                        hitbox.Height = idleFrontSource.Height;
                     }
                     else
                     {
                         drawTexture = idleTextureSide;
                         source = idleSideSource;
+                        hitbox.Width = idleSideSource.Width;
+                        hitbox.Height = idleSideSource.Height;
                     }
                     break;
                 case (Action.Walk):
@@ -370,16 +387,22 @@ namespace Archer
                     {
                         drawTexture = walkTextureBack;
                         source = walkBackSource;
+                        hitbox.Width = walkBackSource.Width;
+                        hitbox.Height = walkBackSource.Height;
                     }
                     else if (direction == Direction.Down)
                     {
                         drawTexture = walkTextureFront;
                         source = walkFrontSource;
+                        hitbox.Width = walkFrontSource.Width;
+                        hitbox.Height = walkFrontSource.Height;
                     }
                     else
                     {
                         drawTexture = walkTextureSide;
                         source = walkSideSource;
+                        hitbox.Width = walkSideSource.Width;
+                        hitbox.Height = walkSideSource.Height;
                     }
                     break;
                 case (Action.Run):
@@ -387,16 +410,22 @@ namespace Archer
                     {
                         drawTexture = walkTextureBack;
                         source = walkBackSource;
+                        hitbox.Width = walkBackSource.Width;
+                        hitbox.Height = walkBackSource.Height;
                     }
                     else if (direction == Direction.Down)
                     {
                         drawTexture = walkTextureFront;
                         source = walkFrontSource;
+                        hitbox.Width = walkFrontSource.Width;
+                        hitbox.Height = walkFrontSource.Height;
                     }
                     else
                     {
                         drawTexture = walkTextureSide;
                         source = walkSideSource;
+                        hitbox.Width = walkSideSource.Width;
+                        hitbox.Height = walkSideSource.Height;
                     }
                     break;
                 case (Action.Shoot):
@@ -404,16 +433,22 @@ namespace Archer
                     {
                         drawTexture = shootTextureBack;
                         source = shootBackSource;
+                        hitbox.Width = shootBackSource.Width;
+                        hitbox.Height = shootBackSource.Height;
                     }
                     else if (direction == Direction.Down)
                     {
                         drawTexture = shootTextureFront;
                         source = shootFrontSource;
+                        hitbox.Width = shootFrontSource.Width;
+                        hitbox.Height = shootFrontSource.Height;
                     }
                     else
                     {
                         drawTexture = shootTextureSide;
                         source = shootSideSource;
+                        hitbox.Width = shootSideSource.Width;
+                        hitbox.Height = shootSideSource.Height;
                     }
                     break;
             }
@@ -447,10 +482,10 @@ namespace Archer
             foreach (ArrowSprite arrow in arrows)
             {
                 arrow.Draw(spriteBatch);
-                Rectangle debugBounds = new Rectangle((int)arrow.Bounds.X, (int)arrow.Bounds.Y, (int)arrow.Bounds.Width, (int)arrow.Bounds.Height);
-                spriteBatch.Draw(debugTexture, debugBounds, Color.White);
             }
             spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
+            Rectangle debugBounds = new Rectangle((int)this.Bounds.X, (int)this.Bounds.Y, (int)this.Bounds.Width, (int)this.Bounds.Height);
+            spriteBatch.Draw(debugTexture, debugBounds, Color.White);
         }
     }
 
