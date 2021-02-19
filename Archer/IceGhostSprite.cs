@@ -146,24 +146,26 @@ namespace Archer
                 {
                     case Direction.Up:
                         Position += new Vector2(0, -1) * scale;
-                        hitbox.Y -= scale;
+                        /*hitbox.Y -= scale;*/
                         break;
                     case Direction.Down:
                         Position += new Vector2(0, 1) * scale;
-                        hitbox.Y += scale;
+                        /*hitbox.Y += scale;*/
                         break;
                     case Direction.Left:
                         flipped = true;
                         Position += new Vector2(-1, 0) * scale;
-                        hitbox.X -= scale;
+                        /*hitbox.X -= scale;*/
                         break;
                     case Direction.Right:
                         flipped = false;
                         Position += new Vector2(1, 0) * scale;
-                        hitbox.X += scale;
+                       /* hitbox.X += scale;*/
                         break;
                 }
             }
+            hitbox.X = Position.X + 16;
+            hitbox.Y = Position.Y + 8;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, bool isGameOver)

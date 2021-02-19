@@ -74,7 +74,7 @@ namespace Archer
                 {
                     if (ghost.Position.X > viewport.Width - 20) ghost.Position.X = viewport.Width - 20;
                     if (ghost.Position.X < 20) ghost.Position.X = 20;
-                    if (ghost.Position.Y > viewport.Height - 20) ghost.Position.Y = viewport.Height - 20;
+                    if (ghost.Position.Y > viewport.Height - 60) ghost.Position.Y = viewport.Height - 60;
                     if (ghost.Position.Y < 20) ghost.Position.Y = 20;
                 }
 
@@ -88,10 +88,6 @@ namespace Archer
                             archerSprite.didHit = true;
                         }
                     }
-                }
-                if (archerSprite.didHit && archerSprite.Arrows.Count>0)
-                {
-                    archerSprite.Arrows.Dequeue();
                 }
                 foreach(IceGhostSprite ghostSprite in ghostSprites)
                 {

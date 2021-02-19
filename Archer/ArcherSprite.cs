@@ -204,19 +204,19 @@ namespace Archer
                 arrow.Update(gameTime);
             }
 
-            if ((didShoot || didHit) && Arrows.Count>0)
+            if ((didShoot) && Arrows.Count>0)
             {
                 //remove off-screen arrows
                 Vector2 currArrowPos = Arrows.Peek().Position;
                 if (currArrowPos.X < 0 || currArrowPos.X > 800
-                    || currArrowPos.Y < 0 || currArrowPos.Y > 480)
+                    || currArrowPos.Y < 0 || currArrowPos.Y > 480 || didHit)
                 {
                     Arrows.Dequeue();
                     if (Arrows.Count == 0)
                     {
                         didShoot = false;
+                        didHit = false;
                     }
-                    didHit = false;
                 }
             }
 
