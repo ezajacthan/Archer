@@ -4,8 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/archerShoot.wav</File>
-    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostFireball.wav</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/arrow.png</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/fireball.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostIce_all.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-back-weapon.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-front-weapon.png</File>

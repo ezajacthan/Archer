@@ -42,7 +42,10 @@ namespace Archer
         private short shootAnimFrame;
         private short walkAnimFrame;
 
-        private SoundEffect fireball;
+        private SoundEffect fireballSound;
+        private FireballSprite fireball;
+        private Texture2D fireballTexture;
+        private bool didShoot;
 
         /// <summary>
         /// Loads the IceGhost sprite
@@ -50,8 +53,9 @@ namespace Archer
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
+            fireballTexture = content.Load<Texture2D>("fireball");
             drawTexture = content.Load<Texture2D>("ghostIce_all");
-            fireball = content.Load<SoundEffect>("ghostFireball");
+            fireballSound = content.Load<SoundEffect>("ghostFireball");
         }
 
         /// <summary>
@@ -60,6 +64,7 @@ namespace Archer
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            if(didShoot) fireball.Update(gameTime);
             decisionTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (attackReset) currAction = GhostAction.Idle;
             if (decisionTimer > 0.5)
@@ -106,7 +111,7 @@ namespace Archer
 
             if (currAction == GhostAction.Walk && canWalk)
             {
-                float scale = 50 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                float scale = 75 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 switch (direction)
                 {
                     case Direction.Up:
@@ -133,12 +138,18 @@ namespace Archer
             if (animTimer > 0.1666666 && currAction == GhostAction.Attack)
             {
                 shootAnimFrame++;
-                if (shootAnimFrame == 4) fireball.Play();
+                if (shootAnimFrame == 4)
+                {
+                    didShoot = true;
+                    fireball = new FireballSprite(direction, flipped, fireballTexture, position);
+                    fireballSound.Play();
+                }
                 if (shootAnimFrame > 5)
                 {
                     //reset sprite
                     shootAnimFrame = 0;
                     attackReset = true;
+                    color = Color.Red;
                 }
                 source.X = 31 * shootAnimFrame + shootAnimFrame;
                 //adjust sprite for visual cleannness
@@ -157,6 +168,7 @@ namespace Archer
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(drawTexture, position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
+            if(didShoot) fireball.Draw(spriteBatch);
         }
     }
 }
