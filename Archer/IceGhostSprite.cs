@@ -33,7 +33,7 @@ namespace Archer
         private bool flipped;
         private bool attackReset;
         private bool canWalk;
-        private float scaling = 3f;
+        private float scaling = 1.5f;
 
         private double animTimer;
         private double decisionTimer;
@@ -58,11 +58,12 @@ namespace Archer
         {
             decisionTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (attackReset) currAction = GhostAction.Idle;
-            if (decisionTimer > 1.0 || attackReset)
+            if (decisionTimer > 0.5)
             {
                 switch (currAction)
                 {
                     case GhostAction.Attack:
+                        attackReset = false;
                         source = attackSource;
                         canWalk = false;
                         color = Color.White;
@@ -81,10 +82,11 @@ namespace Archer
                         canWalk = true;
                         color = Color.White;
                         decisionCounter++;
-                        if (decisionCounter > 2)
+                        if (decisionCounter > 3)
                         {
                             decisionCounter = 0;
                             currAction = GhostAction.Attack;
+                            source = attackSource;
                         }
                         direction = (Direction)random.Next(0, 4);
                         break;
@@ -95,7 +97,7 @@ namespace Archer
                         color = Color.White;
                         break;
                 }
-                decisionTimer -= 1.0;
+                decisionTimer -= 0.5;
             }
 
             if (currAction == GhostAction.Walk && canWalk)
@@ -123,8 +125,8 @@ namespace Archer
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            /*if (currAction == GhostAction.Attack || currAction == GhostAction.Walk)*/ animTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            if (animTimer > 0.2 && currAction == GhostAction.Attack)
+            animTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            if (animTimer > 0.1666666 && currAction == GhostAction.Attack)
             {
                 shootAnimFrame++;
                 if (shootAnimFrame > 5)
