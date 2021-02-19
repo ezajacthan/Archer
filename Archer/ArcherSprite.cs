@@ -83,7 +83,8 @@ namespace Archer
         private short walkAnimFrame;
 
         private SoundEffect shootSound;
-        private Queue<ArrowSprite> arrows = new Queue<ArrowSprite>();
+        public Queue<ArrowSprite> Arrows = new Queue<ArrowSprite>();
+        public bool didHit;
 
         /// <summary>
         /// Load all of the spritesheets for the different animations
@@ -198,23 +199,24 @@ namespace Archer
             priorKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
 
-            foreach (ArrowSprite arrow in arrows)
+            foreach (ArrowSprite arrow in Arrows)
             {
                 arrow.Update(gameTime);
             }
 
-            if (didShoot)
+            if ((didShoot || didHit) && Arrows.Count>0)
             {
                 //remove off-screen arrows
-                Vector2 currArrowPos = arrows.Peek().Position;
+                Vector2 currArrowPos = Arrows.Peek().Position;
                 if (currArrowPos.X < 0 || currArrowPos.X > 800
                     || currArrowPos.Y < 0 || currArrowPos.Y > 480)
                 {
-                    arrows.Dequeue();
-                    if (arrows.Count == 0)
+                    Arrows.Dequeue();
+                    if (Arrows.Count == 0)
                     {
                         didShoot = false;
                     }
+                    didHit = false;
                 }
             }
 
@@ -328,7 +330,7 @@ namespace Archer
                     shootSound.Play();
                     Vector2 arrowPosition = new Vector2(position.X + 25, position.Y + 16);
                     ArrowSprite newArrow = new ArrowSprite(direction, flipped, arrowTexture, arrowPosition);
-                    arrows.Enqueue(newArrow);
+                    Arrows.Enqueue(newArrow);
                     didShoot = true;
                 }
                 shootSideSource.X = 37;
@@ -479,7 +481,7 @@ namespace Archer
             }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            foreach (ArrowSprite arrow in arrows)
+            foreach (ArrowSprite arrow in Arrows)
             {
                 arrow.Draw(spriteBatch);
             }

@@ -7,6 +7,7 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/arrow.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/debug.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/fireball.png</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/game-over.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostIce_all.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-back-weapon.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-front-weapon.png</File>
@@ -17,8 +18,11 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-idle-side.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-walk-front.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-walk-side.png</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/win.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -11,6 +11,11 @@ namespace Archer
 
         private ArcherSprite archerSprite;
         private IceGhostSprite ghostSprite;
+        private bool isGameOver;
+        private bool isWin;
+
+        private Texture2D winTexture;
+        private Texture2D gameOverTexture;
 
         public ArcherGame()
         {
@@ -35,6 +40,8 @@ namespace Archer
             // TODO: use this.Content to load your game content here
             archerSprite.LoadContent(Content);
             ghostSprite.LoadContent(Content);
+            gameOverTexture = Content.Load<Texture2D>("game-over");
+            winTexture = Content.Load<Texture2D>("win");
             
         }
 
@@ -44,8 +51,32 @@ namespace Archer
                 Exit();
 
             // TODO: Add your update logic here
-            archerSprite.Update(gameTime);
-            ghostSprite.Update(gameTime);
+           if(!isGameOver && !isWin)
+            {
+                archerSprite.Update(gameTime);
+                ghostSprite.Update(gameTime);
+
+                foreach (ArrowSprite arrow in archerSprite.Arrows)
+                {
+                    if (arrow.Bounds.CollidesWith(ghostSprite.Bounds))
+                    {
+                        ghostSprite.IsHit = true;
+                        archerSprite.didHit = true;
+                    }
+                }
+                if (archerSprite.didHit && archerSprite.Arrows.Count>0)
+                {
+                    archerSprite.Arrows.Dequeue();
+                }
+                if (ghostSprite.Fireball != null && ghostSprite.Fireball.Bounds.CollidesWith(archerSprite.Bounds) || (!ghostSprite.IsDead && archerSprite.Bounds.CollidesWith(ghostSprite.Bounds)))
+                {
+                    isGameOver = true;
+                }
+                if(ghostSprite.IsDead)
+                {
+                    isWin = true;
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -56,8 +87,10 @@ namespace Archer
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            ghostSprite.Draw(gameTime, _spriteBatch);
+            ghostSprite.Draw(gameTime, _spriteBatch, isGameOver);
             archerSprite.Draw(gameTime, _spriteBatch);
+            if (isGameOver) _spriteBatch.Draw(gameOverTexture, new Rectangle(300, 150, 200, 100), Color.White);
+            else if (isWin) _spriteBatch.Draw(winTexture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);
             _spriteBatch.End();
 
             base.Draw(gameTime);

@@ -28,6 +28,8 @@ namespace Archer
         private Random random = new Random();
         private BoundingRectangle hitbox = new BoundingRectangle(new Vector2(416, 208),16,32);
         public BoundingRectangle Bounds => hitbox;
+        public bool IsHit;
+        public bool IsDead;
 
         private Rectangle deathSource = new Rectangle(0,0,32,32);
         private Rectangle attackSource = new Rectangle(0,33,32,32);
@@ -48,10 +50,9 @@ namespace Archer
         private short deathAnimFrame;
 
         private SoundEffect fireballSound;
-        private FireballSprite fireball;
+        public FireballSprite Fireball;
         private Texture2D fireballTexture;
         private bool didShoot;
-        private short shootCounter = 2;
 
         /// <summary>
         /// Loads the IceGhost sprite
@@ -71,10 +72,16 @@ namespace Archer
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            if(didShoot) fireball.Update(gameTime);
+            if(didShoot) Fireball.Update(gameTime);
+            if(IsHit)
+            {
+                currAction = GhostAction.Death;
+                source = deathSource;
+                IsHit = false;
+            }
             decisionTimer += gameTime.ElapsedGameTime.TotalSeconds;
             if (attackReset) currAction = GhostAction.Idle;
-            if (decisionTimer > 0.5)
+            if (decisionTimer > 0.5 || IsHit)
             {
                 switch (currAction)
                 {
@@ -83,11 +90,6 @@ namespace Archer
                         source = attackSource;
                         canWalk = false;
                         color = Color.White;
-                        if (shootCounter == 0)
-                        {
-                            currAction = GhostAction.Death;
-                            source = deathSource;
-                        }
                         break;
 
                     case GhostAction.Idle:
@@ -147,22 +149,21 @@ namespace Archer
             }
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, bool isGameOver)
         {
             animTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            if (animTimer > 0.1666666 && currAction == GhostAction.Attack)
+            if (animTimer > 0.1666666 && currAction == GhostAction.Attack && !isGameOver)
             {
                 shootAnimFrame++;
                 if (shootAnimFrame == 4)
                 {
                     didShoot = true;
-                    fireball = new FireballSprite(direction, flipped, fireballTexture, position);
+                    Fireball = new FireballSprite(direction, flipped, fireballTexture, position);
                     fireballSound.Play();
                 }
                 if (shootAnimFrame > 5)
                 {
                     //reset sprite
-                    shootCounter--;
                     shootAnimFrame = 0;
                     attackReset = true;
                     color = Color.Red;
@@ -172,7 +173,7 @@ namespace Archer
                 if (shootAnimFrame == 4) source.X++;
                 animTimer -= 0.2;
             }
-            else if (animTimer >= 0.1 && (currAction == GhostAction.Walk))
+            else if (animTimer >= 0.1 && (currAction == GhostAction.Walk) && !isGameOver)
             {
                 walkAnimFrame++;
                 if (walkAnimFrame > 3) walkAnimFrame = 0;
@@ -180,12 +181,13 @@ namespace Archer
                 source.X = 32 * walkAnimFrame;
                 animTimer -= 0.1;
             }
-            else if(animTimer >= 0.07 && currAction == GhostAction.Death)
+            else if(animTimer >= 0.07 && currAction == GhostAction.Death && !isGameOver)
             {
                 deathAnimFrame++;
                 if(deathAnimFrame>8)
                 {
                     source = new Rectangle(232, 42, 32, 32);
+                    IsDead = true;
                 }
                 source.X = 32 * deathAnimFrame;
                 animTimer -= 0.07;
@@ -193,11 +195,9 @@ namespace Archer
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(drawTexture, position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
-            Rectangle debug = new Rectangle((int)this.hitbox.X, (int)this.hitbox.Y, (int)this.Bounds.Width, (int)this.Bounds.Height);
-            spriteBatch.Draw(debugTexture, debug, Color.White);
             if (didShoot)
             {
-                fireball.Draw(spriteBatch);
+                Fireball.Draw(spriteBatch);
             }
         }
     }

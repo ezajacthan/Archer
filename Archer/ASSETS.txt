@@ -1,0 +1,14 @@
+﻿Content/arrow.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-attack-back-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-attack-back-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-attack-back-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-back-walk-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-walk-front-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-walk-side-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-idle-back-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-idle-front-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/hero-idle-side-weapon.png - created by ansimuz of OpenGameArt (https://opengameart.org/content/tiny-rpg-forest) and released under the public domain
+Content/fireball.png - created by djantosh10 of OpenGameArt (https://opengameart.org/content/fireballs) and released under the public domain
+Content/ghostIce_all.png - created by LetargicDev of OpenGameArt (https://opengameart.org/content/ghost-animated) and released under the public domain
+Content/game-over.png - created by Angry Amish of OpenGameArt (https://opengameart.org/content/game-over-screen) and released under the public domain
+Content/win.png - created by me using Cooltext.com (https://cooltext.com/)

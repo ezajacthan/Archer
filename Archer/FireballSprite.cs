@@ -45,7 +45,7 @@ namespace Archer
             Flipped = flip;
             Texture = texture;
             Position = pos;
-            hitbox =  new BoundingCircle(new Vector2(pos.X, pos.Y), 22);
+            hitbox =  new BoundingCircle(new Vector2(pos.X, pos.Y), 7);
         }
 
         /// <summary>
