@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Archer.Collisions;
 
 namespace Archer
 {
@@ -22,8 +23,11 @@ namespace Archer
         private Texture2D drawTexture;
         private Rectangle source;
         private Color color = Color.White;
+        private Texture2D debugTexture;
 
         private Random random = new Random();
+        private BoundingRectangle hitbox = new BoundingRectangle(new Vector2(416, 208),16,32);
+        public BoundingRectangle Bounds => hitbox;
 
         private Rectangle deathSource = new Rectangle(0,0,32,32);
         private Rectangle attackSource = new Rectangle(0,33,32,32);
@@ -58,6 +62,7 @@ namespace Archer
             fireballTexture = content.Load<Texture2D>("fireball");
             drawTexture = content.Load<Texture2D>("ghostIce_all");
             fireballSound = content.Load<SoundEffect>("ghostFireball");
+            debugTexture = content.Load<Texture2D>("debug");
         }
 
         /// <summary>
@@ -122,17 +127,21 @@ namespace Archer
                 {
                     case Direction.Up:
                         position += new Vector2(0, -1) * scale;
+                        hitbox.Y -= scale;
                         break;
                     case Direction.Down:
                         position += new Vector2(0, 1) * scale;
+                        hitbox.Y += scale;
                         break;
                     case Direction.Left:
                         flipped = true;
                         position += new Vector2(-1, 0) * scale;
+                        hitbox.X -= scale;
                         break;
                     case Direction.Right:
                         flipped = false;
                         position += new Vector2(1, 0) * scale;
+                        hitbox.X += scale;
                         break;
                 }
             }
@@ -184,7 +193,12 @@ namespace Archer
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(drawTexture, position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
-            if(didShoot) fireball.Draw(spriteBatch);
+            Rectangle debug = new Rectangle((int)this.hitbox.X, (int)this.hitbox.Y, (int)this.Bounds.Width, (int)this.Bounds.Height);
+            spriteBatch.Draw(debugTexture, debug, Color.White);
+            if (didShoot)
+            {
+                fireball.Draw(spriteBatch);
+            }
         }
     }
 }

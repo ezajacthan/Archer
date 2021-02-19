@@ -484,8 +484,6 @@ namespace Archer
                 arrow.Draw(spriteBatch);
             }
             spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
-            Rectangle debugBounds = new Rectangle((int)this.Bounds.X, (int)this.Bounds.Y, (int)this.Bounds.Width, (int)this.Bounds.Height);
-            spriteBatch.Draw(debugTexture, debugBounds, Color.White);
         }
     }
 

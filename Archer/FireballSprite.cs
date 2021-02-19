@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Archer.Collisions;
 
 namespace Archer
 {
     public class FireballSprite
     {
         private Rectangle sourceRectangle = new Rectangle(21,30,76,48);
+        private BoundingCircle hitbox;
+
+        public BoundingCircle Bounds => hitbox;
 
         /// <summary>
         /// Propoerty to hold the position of the sprite
@@ -41,6 +45,7 @@ namespace Archer
             Flipped = flip;
             Texture = texture;
             Position = pos;
+            hitbox =  new BoundingCircle(new Vector2(pos.X, pos.Y), 22);
         }
 
         /// <summary>
@@ -52,10 +57,12 @@ namespace Archer
             if(Flipped)
             {
                 Position += new Vector2(-1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                hitbox.Center += new Vector2(-1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else
             {
                 Position += new Vector2(1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                hitbox.Center += new Vector2(1, 0) * 300 * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
 
