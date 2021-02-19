@@ -41,11 +41,13 @@ namespace Archer
         private short decisionCounter = 0;
         private short shootAnimFrame;
         private short walkAnimFrame;
+        private short deathAnimFrame;
 
         private SoundEffect fireballSound;
         private FireballSprite fireball;
         private Texture2D fireballTexture;
         private bool didShoot;
+        private short shootCounter = 2;
 
         /// <summary>
         /// Loads the IceGhost sprite
@@ -76,6 +78,11 @@ namespace Archer
                         source = attackSource;
                         canWalk = false;
                         color = Color.White;
+                        if (shootCounter == 0)
+                        {
+                            currAction = GhostAction.Death;
+                            source = deathSource;
+                        }
                         break;
 
                     case GhostAction.Idle:
@@ -101,7 +108,6 @@ namespace Archer
                         break;
 
                     case GhostAction.Death:
-                        source = deathSource;
                         canWalk = false;
                         color = Color.White;
                         break;
@@ -147,6 +153,7 @@ namespace Archer
                 if (shootAnimFrame > 5)
                 {
                     //reset sprite
+                    shootCounter--;
                     shootAnimFrame = 0;
                     attackReset = true;
                     color = Color.Red;
@@ -164,7 +171,16 @@ namespace Archer
                 source.X = 32 * walkAnimFrame;
                 animTimer -= 0.1;
             }
-            /*else animTimer -= gameTime.ElapsedGameTime.TotalSeconds;*/
+            else if(animTimer >= 0.07 && currAction == GhostAction.Death)
+            {
+                deathAnimFrame++;
+                if(deathAnimFrame>8)
+                {
+                    source = new Rectangle(232, 42, 32, 32);
+                }
+                source.X = 32 * deathAnimFrame;
+                animTimer -= 0.07;
+            }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(drawTexture, position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
