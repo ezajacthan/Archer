@@ -49,7 +49,7 @@ namespace Archer
         private Texture2D arrowTexture;
         private Texture2D debugTexture;
 
-        private Vector2 position = new Vector2(200, 200);
+        public Vector2 Position = new Vector2(200, 200);
         private double velocity = 0;
         private double acceleration = 0;
 
@@ -124,26 +124,26 @@ namespace Archer
                 case Direction.Down:
                     acceleration = 0;
                     velocity = 3f;
-                    position.Y = position.Y + (float)velocity*(float)gameTime.ElapsedGameTime.TotalSeconds * 10;
-                    hitbox.Y = position.Y + 8;
+                    Position.Y = Position.Y + (float)velocity*(float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.Y = Position.Y + 8;
                     break;
                 case Direction.Up:
                     acceleration = 0;
                     velocity = 3f;
-                    position.Y = position.Y - (float) velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
-                    hitbox.Y = position.Y + 8;
+                    Position.Y = Position.Y - (float) velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.Y = Position.Y + 8;
                     break;
                 case Direction.Right:
                     acceleration = 0;
                     velocity = 3f;
-                    position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
-                    hitbox.X = position.X + 6;
+                    Position.X = Position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.X = Position.X + 6;
                     break;
                 case Direction.Left:
                     acceleration = 0;
                     velocity = 3f;
-                    position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
-                    hitbox.X = position.X + 6;
+                    Position.X = Position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 10;
+                    hitbox.X = Position.X + 6;
                     break;
             }
         }
@@ -171,20 +171,20 @@ namespace Archer
             switch (dir)
             {
                 case Direction.Down:
-                    position.Y = position.Y + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
-                    hitbox.Y = position.Y + 8;
+                    Position.Y = Position.Y + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.Y = Position.Y + 8;
                     break;
                 case Direction.Up:
-                    position.Y = position.Y - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
-                    hitbox.Y = position.Y + 8;
+                    Position.Y = Position.Y - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.Y = Position.Y + 8;
                     break;
                 case Direction.Right:
-                    position.X = position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
-                    hitbox.X = position.X + 6;
+                    Position.X = Position.X + (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.X = Position.X + 6;
                     break;
                 case Direction.Left:
-                    position.X = position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
-                    hitbox.X = position.X + 6;
+                    Position.X = Position.X - (float)velocity * (float)gameTime.ElapsedGameTime.TotalSeconds * 20;
+                    hitbox.X = Position.X + 6;
                     break;                   
             }
         }
@@ -328,7 +328,7 @@ namespace Archer
                 {
                     canShoot = false;
                     shootSound.Play();
-                    Vector2 arrowPosition = new Vector2(position.X + 25, position.Y + 16);
+                    Vector2 arrowPosition = new Vector2(Position.X + 25, Position.Y + 16);
                     ArrowSprite newArrow = new ArrowSprite(direction, flipped, arrowTexture, arrowPosition);
                     Arrows.Enqueue(newArrow);
                     didShoot = true;
@@ -485,7 +485,7 @@ namespace Archer
             {
                 arrow.Draw(spriteBatch);
             }
-            spriteBatch.Draw(drawTexture, position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
+            spriteBatch.Draw(drawTexture, Position, source, Color.White, 0, new Vector2(0, 0), scaling, flip, 0);
         }
     }
 

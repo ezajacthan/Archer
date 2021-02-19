@@ -10,7 +10,7 @@ namespace Archer
         private SpriteBatch _spriteBatch;
 
         private ArcherSprite archerSprite;
-        private IceGhostSprite ghostSprite;
+        private IceGhostSprite [] ghostSprites = new IceGhostSprite[3];
         private bool isGameOver;
         private bool isWin;
 
@@ -28,7 +28,11 @@ namespace Archer
         {
             // TODO: Add your initialization logic here
             archerSprite = new ArcherSprite();
-            ghostSprite = new IceGhostSprite();
+            ghostSprites[0] = new IceGhostSprite(new Vector2(400,200));
+            ghostSprites[0].setDecisionTimer(0.5);
+            ghostSprites[1] = new IceGhostSprite(new Vector2(0, 300));
+            ghostSprites[1].setDecisionTimer(0.8);
+            ghostSprites[2] = new IceGhostSprite(new Vector2(750, 75));
 
             base.Initialize();
         }
@@ -39,7 +43,9 @@ namespace Archer
 
             // TODO: use this.Content to load your game content here
             archerSprite.LoadContent(Content);
-            ghostSprite.LoadContent(Content);
+            ghostSprites[0].LoadContent(Content);
+            ghostSprites[1].LoadContent(Content);
+            ghostSprites[2].LoadContent(Content);
             gameOverTexture = Content.Load<Texture2D>("game-over");
             winTexture = Content.Load<Texture2D>("win");
             
@@ -54,27 +60,54 @@ namespace Archer
            if(!isGameOver && !isWin)
             {
                 archerSprite.Update(gameTime);
-                ghostSprite.Update(gameTime);
+                ghostSprites[0].Update(gameTime);
+                ghostSprites[1].Update(gameTime);
+                ghostSprites[2].Update(gameTime);
+
+                Viewport viewport = GraphicsDevice.Viewport;
+                if (archerSprite.Position.X > viewport.Width - 20) archerSprite.Position.X = viewport.Width - 20;
+                if (archerSprite.Position.X < 20) archerSprite.Position.X = 20;
+                if (archerSprite.Position.Y > viewport.Height - 40) archerSprite.Position.Y = viewport.Height - 40;
+                if (archerSprite.Position.Y < 20) archerSprite.Position.Y = 20;
+
+                foreach (IceGhostSprite ghost in ghostSprites)
+                {
+                    if (ghost.Position.X > viewport.Width - 20) ghost.Position.X = viewport.Width - 20;
+                    if (ghost.Position.X < 20) ghost.Position.X = 20;
+                    if (ghost.Position.Y > viewport.Height - 20) ghost.Position.Y = viewport.Height - 20;
+                    if (ghost.Position.Y < 20) ghost.Position.Y = 20;
+                }
 
                 foreach (ArrowSprite arrow in archerSprite.Arrows)
                 {
-                    if (arrow.Bounds.CollidesWith(ghostSprite.Bounds))
+                    foreach (IceGhostSprite ghost in ghostSprites)
                     {
-                        ghostSprite.IsHit = true;
-                        archerSprite.didHit = true;
+                        if (arrow.Bounds.CollidesWith(ghost.Bounds))
+                        {
+                            ghost.IsHit = true;
+                            archerSprite.didHit = true;
+                        }
                     }
                 }
                 if (archerSprite.didHit && archerSprite.Arrows.Count>0)
                 {
                     archerSprite.Arrows.Dequeue();
                 }
-                if (ghostSprite.Fireball != null && ghostSprite.Fireball.Bounds.CollidesWith(archerSprite.Bounds) || (!ghostSprite.IsDead && archerSprite.Bounds.CollidesWith(ghostSprite.Bounds)))
+                foreach(IceGhostSprite ghostSprite in ghostSprites)
                 {
-                    isGameOver = true;
+                    if (ghostSprite.Fireball != null && ghostSprite.Fireball.Bounds.CollidesWith(archerSprite.Bounds) || (!ghostSprite.IsDead && archerSprite.Bounds.CollidesWith(ghostSprite.Bounds)))
+                    {
+                        isGameOver = true;
+                    }
                 }
-                if(ghostSprite.IsDead)
+
+                isWin = true;
+                foreach (IceGhostSprite ghost in ghostSprites)
                 {
-                    isWin = true;
+                    if (!ghost.IsDead)
+                    {
+                        isWin = false;
+                    }
                 }
             }
 
@@ -87,7 +120,7 @@ namespace Archer
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            ghostSprite.Draw(gameTime, _spriteBatch, isGameOver);
+            foreach (IceGhostSprite ghostSprite in ghostSprites) ghostSprite.Draw(gameTime, _spriteBatch, isGameOver);
             archerSprite.Draw(gameTime, _spriteBatch);
             if (isGameOver) _spriteBatch.Draw(gameOverTexture, new Rectangle(300, 150, 200, 100), Color.White);
             else if (isWin) _spriteBatch.Draw(winTexture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);

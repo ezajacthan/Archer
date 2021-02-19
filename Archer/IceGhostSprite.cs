@@ -19,23 +19,23 @@ namespace Archer
 
     public class IceGhostSprite
     {
-        private Vector2 position = new Vector2(400, 200);
+        public Vector2 Position;
         private Texture2D drawTexture;
         private Rectangle source;
         private Color color = Color.White;
         private Texture2D debugTexture;
 
         private Random random = new Random();
-        private BoundingRectangle hitbox = new BoundingRectangle(new Vector2(416, 208),16,32);
+        private BoundingRectangle hitbox;
         public BoundingRectangle Bounds => hitbox;
         public bool IsHit;
         public bool IsDead;
 
-        private Rectangle deathSource = new Rectangle(0,0,32,32);
-        private Rectangle attackSource = new Rectangle(0,33,32,32);
-        private Rectangle idleSource = new Rectangle(0,65,32,32);
+        private Rectangle deathSource = new Rectangle(0, 0, 32, 32);
+        private Rectangle attackSource = new Rectangle(0, 33, 32, 32);
+        private Rectangle idleSource = new Rectangle(0, 65, 32, 32);
 
-        private GhostAction currAction = GhostAction.Attack;
+        private GhostAction currAction = GhostAction.Walk;
         private Direction direction = Direction.Right;
         private bool flipped;
         private bool attackReset;
@@ -53,6 +53,23 @@ namespace Archer
         public FireballSprite Fireball;
         private Texture2D fireballTexture;
         private bool didShoot;
+
+        public IceGhostSprite(Vector2 pos)
+        {
+            Position = pos;
+            hitbox = new BoundingRectangle(new Vector2(pos.X + 16, pos.Y + 8), 16, 32);
+        }
+
+        /// <summary>
+        /// setter for the decision timer
+        /// </summary>
+        /// <param name="time">time to put in the timer</param>
+        public void setDecisionTimer(double time)
+        {
+            decisionTimer = time;
+        }
+
+
 
         /// <summary>
         /// Loads the IceGhost sprite
@@ -128,21 +145,21 @@ namespace Archer
                 switch (direction)
                 {
                     case Direction.Up:
-                        position += new Vector2(0, -1) * scale;
+                        Position += new Vector2(0, -1) * scale;
                         hitbox.Y -= scale;
                         break;
                     case Direction.Down:
-                        position += new Vector2(0, 1) * scale;
+                        Position += new Vector2(0, 1) * scale;
                         hitbox.Y += scale;
                         break;
                     case Direction.Left:
                         flipped = true;
-                        position += new Vector2(-1, 0) * scale;
+                        Position += new Vector2(-1, 0) * scale;
                         hitbox.X -= scale;
                         break;
                     case Direction.Right:
                         flipped = false;
-                        position += new Vector2(1, 0) * scale;
+                        Position += new Vector2(1, 0) * scale;
                         hitbox.X += scale;
                         break;
                 }
@@ -158,7 +175,7 @@ namespace Archer
                 if (shootAnimFrame == 4)
                 {
                     didShoot = true;
-                    Fireball = new FireballSprite(direction, flipped, fireballTexture, position);
+                    Fireball = new FireballSprite(direction, flipped, fireballTexture, Position);
                     fireballSound.Play();
                 }
                 if (shootAnimFrame > 5)
@@ -194,7 +211,7 @@ namespace Archer
             }
 
             SpriteEffects flip = (flipped) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            spriteBatch.Draw(drawTexture, position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
+            spriteBatch.Draw(drawTexture, Position, source, color, 0, new Vector2(0, 0), scaling, flip, 0);
             if (didShoot)
             {
                 Fireball.Draw(spriteBatch);
