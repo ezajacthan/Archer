@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Archer
 {
@@ -28,6 +29,7 @@ namespace Archer
     {
         private GamePadState gamePadState;
         private KeyboardState keyboardState;
+        private KeyboardState priorKeyboardState;
 
         private Texture2D drawTexture;
         private Rectangle source;
@@ -73,6 +75,8 @@ namespace Archer
         private short shootAnimFrame;
         private short walkAnimFrame;
 
+        private SoundEffect shootSound;
+
         /// <summary>
         /// Load all of the spritesheets for the different animations
         /// </summary>
@@ -88,6 +92,7 @@ namespace Archer
             shootTextureFront = content.Load<Texture2D>("hero-attack-front-weapon");
             shootTextureBack = content.Load<Texture2D>("hero-attack-back-weapon");
             shootTextureSide = content.Load<Texture2D>("hero-attack-side-weapon");
+            shootSound = content.Load<SoundEffect>("archerShoot");
         }
 
         /// <summary>
@@ -172,6 +177,7 @@ namespace Archer
         public void Update(GameTime gameTime)
         {
             gamePadState = GamePad.GetState(0);
+            priorKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
 
             //get input controls
@@ -277,6 +283,10 @@ namespace Archer
             }
             if(keyboardState.IsKeyUp(Keys.Space))
             { 
+                if(priorKeyboardState.IsKeyDown(Keys.Space))
+                {
+                    shootSound.Play();
+                }
                 shootSideSource.X = 37;
                 shootFrontSource.X = 41;
                 shootBackSource.X = 37;

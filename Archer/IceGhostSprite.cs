@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Archer
 {
@@ -41,6 +42,8 @@ namespace Archer
         private short shootAnimFrame;
         private short walkAnimFrame;
 
+        private SoundEffect fireball;
+
         /// <summary>
         /// Loads the IceGhost sprite
         /// </summary>
@@ -48,6 +51,7 @@ namespace Archer
         public void LoadContent(ContentManager content)
         {
             drawTexture = content.Load<Texture2D>("ghostIce_all");
+            fireball = content.Load<SoundEffect>("ghostFireball");
         }
 
         /// <summary>
@@ -129,6 +133,7 @@ namespace Archer
             if (animTimer > 0.1666666 && currAction == GhostAction.Attack)
             {
                 shootAnimFrame++;
+                if (shootAnimFrame == 4) fireball.Play();
                 if (shootAnimFrame > 5)
                 {
                     //reset sprite

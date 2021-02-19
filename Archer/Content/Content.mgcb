@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin archerShoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:archerShoot.wav
+
+#begin ghostFireball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ghostFireball.wav
+
 #begin ghostIce_all.png
 /importer:TextureImporter
 /processor:TextureProcessor
