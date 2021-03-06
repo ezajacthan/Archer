@@ -146,21 +146,17 @@ namespace Archer
                 {
                     case Direction.Up:
                         Position += new Vector2(0, -1) * scale;
-                        /*hitbox.Y -= scale;*/
                         break;
                     case Direction.Down:
                         Position += new Vector2(0, 1) * scale;
-                        /*hitbox.Y += scale;*/
                         break;
                     case Direction.Left:
                         flipped = true;
                         Position += new Vector2(-1, 0) * scale;
-                        /*hitbox.X -= scale;*/
                         break;
                     case Direction.Right:
                         flipped = false;
                         Position += new Vector2(1, 0) * scale;
-                       /* hitbox.X += scale;*/
                         break;
                 }
             }
@@ -207,6 +203,8 @@ namespace Archer
                 {
                     source = new Rectangle(232, 42, 32, 32);
                     IsDead = true;
+                    hitbox.Width = 0;
+                    hitbox.Height = 0;
                 }
                 source.X = 32 * deathAnimFrame;
                 animTimer -= 0.07;

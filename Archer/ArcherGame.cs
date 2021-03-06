@@ -60,9 +60,13 @@ namespace Archer
            if(!isGameOver && !isWin)
             {
                 archerSprite.Update(gameTime);
-                ghostSprites[0].Update(gameTime);
-                ghostSprites[1].Update(gameTime);
-                ghostSprites[2].Update(gameTime);
+                foreach (IceGhostSprite ghost in ghostSprites)
+                {
+                    if(!ghost.IsDead)
+                    {
+                        ghost.Update(gameTime);
+                    }
+                }
 
                 Viewport viewport = GraphicsDevice.Viewport;
                 if (archerSprite.Position.X > viewport.Width - 20) archerSprite.Position.X = viewport.Width - 20;
@@ -116,7 +120,13 @@ namespace Archer
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            foreach (IceGhostSprite ghostSprite in ghostSprites) ghostSprite.Draw(gameTime, _spriteBatch, isGameOver);
+            foreach (IceGhostSprite ghost in ghostSprites)
+            {
+                if (!ghost.IsDead)
+                {
+                    ghost.Draw(gameTime, _spriteBatch, isGameOver);
+                }
+            }
             archerSprite.Draw(gameTime, _spriteBatch);
             if (isGameOver) _spriteBatch.Draw(gameOverTexture, new Rectangle(300, 150, 200, 100), Color.White);
             else if (isWin) _spriteBatch.Draw(winTexture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);
