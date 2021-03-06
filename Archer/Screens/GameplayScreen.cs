@@ -116,6 +116,12 @@ namespace Archer.Screens
                     if(isWin)
                     {
                         ScreenManager.RemoveScreen(this);
+                        ScreenManager.AddScreen(new WinScreen(), null);
+                    }
+                    if(isGameOver)
+                    {
+                        ScreenManager.RemoveScreen(this);
+                        ScreenManager.AddScreen(new DeathScreen(), null);
                     }
                 }
             }
