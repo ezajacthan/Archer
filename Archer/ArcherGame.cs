@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Archer.Screens;
+using Archer.StateManagement;
 
 namespace Archer
 {
@@ -8,6 +10,7 @@ namespace Archer
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private readonly ScreenManager screenManager;
 
         private ArcherSprite archerSprite;
         private IceGhostSprite [] ghostSprites = new IceGhostSprite[3];
@@ -22,24 +25,37 @@ namespace Archer
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            var screenFactory = new ScreenFactory();
+            Services.AddService(typeof(IScreenFactory), screenFactory);
+
+            screenManager = new ScreenManager(this);
+            Components.Add(screenManager);
+
+            AddInitialScreens();
+        }
+
+        private void AddInitialScreens()
+        {
+            screenManager.AddScreen(new GameplayScreen(), null);
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            archerSprite = new ArcherSprite();
+           /* archerSprite = new ArcherSprite();
             ghostSprites[0] = new IceGhostSprite(new Vector2(400,200));
             ghostSprites[0].setDecisionTimer(0.5);
             ghostSprites[1] = new IceGhostSprite(new Vector2(0, 300));
             ghostSprites[1].setDecisionTimer(0.8);
-            ghostSprites[2] = new IceGhostSprite(new Vector2(750, 75));
+            ghostSprites[2] = new IceGhostSprite(new Vector2(750, 75));*/
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+           /* _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
             archerSprite.LoadContent(Content);
@@ -47,7 +63,7 @@ namespace Archer
             ghostSprites[1].LoadContent(Content);
             ghostSprites[2].LoadContent(Content);
             gameOverTexture = Content.Load<Texture2D>("game-over");
-            winTexture = Content.Load<Texture2D>("win");
+            winTexture = Content.Load<Texture2D>("win");*/
             
         }
 
@@ -57,7 +73,7 @@ namespace Archer
                 Exit();
 
             // TODO: Add your update logic here
-           if(!isGameOver && !isWin)
+           /*if(!isGameOver && !isWin)
             {
                 archerSprite.Update(gameTime);
                 foreach (IceGhostSprite ghost in ghostSprites)
@@ -109,7 +125,7 @@ namespace Archer
                         isWin = false;
                     }
                 }
-            }
+            }*/
 
             base.Update(gameTime);
         }
@@ -118,7 +134,7 @@ namespace Archer
         {
             GraphicsDevice.Clear(Color.ForestGreen);
 
-            // TODO: Add your drawing code here
+            /*// TODO: Add your drawing code here
             _spriteBatch.Begin();
             foreach (IceGhostSprite ghost in ghostSprites)
             {
@@ -130,7 +146,7 @@ namespace Archer
             archerSprite.Draw(gameTime, _spriteBatch);
             if (isGameOver) _spriteBatch.Draw(gameOverTexture, new Rectangle(300, 150, 200, 100), Color.White);
             else if (isWin) _spriteBatch.Draw(winTexture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);
-            _spriteBatch.End();
+            _spriteBatch.End();*/
 
             base.Draw(gameTime);
         }
