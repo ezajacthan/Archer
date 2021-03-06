@@ -60,6 +60,14 @@ namespace Archer
             hitbox = new BoundingRectangle(new Vector2(pos.X + 16, pos.Y + 8), 16, 32);
         }
 
+        public void setHitbox(Vector2 pos, int width, int height)
+        {
+            hitbox.X = pos.X;
+            hitbox.Y = pos.Y;
+            hitbox.Width = width;
+            hitbox.Height = height;
+        }
+
         /// <summary>
         /// setter for the decision timer
         /// </summary>
@@ -134,6 +142,8 @@ namespace Archer
                     case GhostAction.Death:
                         canWalk = false;
                         color = Color.White;
+                        hitbox.Width = 0;
+                        hitbox.Height = 0;
                         break;
                 }
                 decisionTimer -= 0.5;
@@ -203,8 +213,6 @@ namespace Archer
                 {
                     source = new Rectangle(232, 42, 32, 32);
                     IsDead = true;
-                    hitbox.Width = 0;
-                    hitbox.Height = 0;
                 }
                 source.X = 32 * deathAnimFrame;
                 animTimer -= 0.07;

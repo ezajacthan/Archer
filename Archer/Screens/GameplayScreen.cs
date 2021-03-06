@@ -97,6 +97,7 @@ namespace Archer.Screens
                             if (arrow.Bounds.CollidesWith(ghost.Bounds))
                             {
                                 ghost.IsHit = true;
+                                ghost.setHitbox(new Vector2(900, 500), 0, 0);
                                 archerSprite.didHit = true;
                             }
                         }
