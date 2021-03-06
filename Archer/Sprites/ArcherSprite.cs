@@ -104,6 +104,8 @@ namespace Archer
             shootSound = content.Load<SoundEffect>("archerShoot");
             arrowTexture = content.Load<Texture2D>("arrow");
             debugTexture = content.Load<Texture2D>("debug");
+
+            drawTexture = idleTextureFront;
     }
 
         /// <summary>

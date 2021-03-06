@@ -40,19 +40,13 @@ namespace Archer.Screens
             if(content == null)
             {
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-                archerSprite.LoadContent(content);
-                foreach (IceGhostSprite ghost in ghostSprites)
-                {
-                    ghost.LoadContent(content);
-                }
-                //ScreenManager.Game.ResetElapsedTime();
             }
-        }
 
-        public override void Deactivate()
-        {
-            base.Deactivate();
+            archerSprite.LoadContent(content);
+            foreach (IceGhostSprite ghost in ghostSprites)
+            {
+                ghost.LoadContent(content);
+            }
         }
 
         public override void Unload()
@@ -64,7 +58,7 @@ namespace Archer.Screens
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-            if(IsActive)
+            if(IsActive && !otherScreenHasFocus && !coveredByOtherScreen)
             {
                 if (!isGameOver && !isWin)
                 {
@@ -117,6 +111,11 @@ namespace Archer.Screens
                         {
                             isWin = false;
                         }
+                    }
+
+                    if(isWin)
+                    {
+                        ScreenManager.RemoveScreen(this);
                     }
                 }
             }
