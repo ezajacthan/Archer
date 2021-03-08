@@ -47,8 +47,11 @@ namespace Archer.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            var font = ScreenManager.Font;
             ScreenManager.SpriteBatch.Begin();
             ScreenManager.SpriteBatch.Draw(texture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);
+            ScreenManager.SpriteBatch.DrawString(font, "Press Enter to play again", new Vector2(150, 270), Color.DarkGray);
+            ScreenManager.SpriteBatch.DrawString(font, "Press ESC to exit", new Vector2(210, 320), Color.DarkGray);
             ScreenManager.SpriteBatch.End();
         }
     }
