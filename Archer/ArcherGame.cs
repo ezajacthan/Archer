@@ -12,10 +12,6 @@ namespace Archer
         private readonly ScreenManager screenManager;
 
         public bool ShouldExit;
-        private Texture2D gameOverTexture;
-
-        private WinScreen winScreen = new WinScreen();
-        private DeathScreen deathScreen = new DeathScreen();
 
         public ArcherGame()
         {
@@ -34,9 +30,7 @@ namespace Archer
 
         private void AddInitialScreens()
         {
-           /* screenManager.AddScreen(new WinScreen(), null);
-            screenManager.AddScreen(new DeathScreen(), null);*/
-            screenManager.AddScreen(new GameplayScreen(), null);
+           screenManager.AddScreen(new MainMenuScreen(), null);
         }
 
         protected override void Initialize()

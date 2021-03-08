@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TV7qKuOl/7horooSOaZgAwjNWw8s/xfrU5dAJ0Zd/d9X4d1WeVDbuip5dNJBxdxFQY2u0rm4cYgjZBGQm+7T3w==",
+  "dgSpecHash": "cpD9lqksM5s70Sq0u4gJ596VbxintUxohckir33XTGPcBDdqS9lrE/zJJZ/S1KRlL5wa3uGAbzGvmDjs2MoEHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ethan\\Desktop\\CIS580\\Games\\Archer\\Archer\\Archer\\Archer\\Archer.csproj",
   "expectedPackageFiles": [
@@ -26,7 +26,7 @@
     "C:\\Users\\Ethan\\.nuget\\packages\\monogame.framework.windowsdx\\3.8.0.1641\\monogame.framework.windowsdx.3.8.0.1641.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.0\\netstandard.library.1.6.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\runtime.native.system.io.compression\\4.1.0\\runtime.native.system.io.compression.4.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system.io.compression\\4.1.0\\runtime.native.system.io.compression.4.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system.net.http\\4.0.1\\runtime.native.system.net.http.4.0.1.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\runtime.native.system.net.security\\4.0.1\\runtime.native.system.net.security.4.0.1.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\runtime.native.system.security.cryptography\\4.0.1\\runtime.native.system.security.cryptography.4.0.1.nupkg.sha512",

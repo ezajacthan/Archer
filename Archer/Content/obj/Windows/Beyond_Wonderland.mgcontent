@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/beyond_wonderland.spritefont</SourceFile>
+  <SourceTime>2021-03-08T15:04:36.1045421-06:00</SourceTime>
+  <DestFile>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/beyond_wonderland.xnb</DestFile>
+  <DestTime>2021-03-08T15:04:44.1334101-06:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2020-08-10T16:17:54-05:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2020-08-10T16:17:54-05:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
