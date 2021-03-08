@@ -30,7 +30,7 @@ namespace Archer.Screens
 
         private void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new WinScreen(), e.PlayerIndex);
+            ScreenManager.AddScreen(new SoundOptionsScreen(), e.PlayerIndex);
         }
 
         protected override void OnCancel(PlayerIndex playerIndex)
