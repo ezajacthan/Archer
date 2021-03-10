@@ -23,10 +23,12 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-idle-side.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-walk-front.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-walk-side.png</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/menuSelect.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/menuSound.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/win.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

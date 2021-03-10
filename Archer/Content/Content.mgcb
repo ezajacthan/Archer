@@ -213,6 +213,12 @@
 /processorParam:TextureFormat=Color
 /build:hero-walk-side.png
 
+#begin menuSelect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:menuSelect.wav
+
 #begin menuSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

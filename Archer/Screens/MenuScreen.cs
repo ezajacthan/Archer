@@ -15,6 +15,7 @@ namespace Archer.Screens
     {
         private ContentManager content;
         private SoundEffect menuMoveSound;
+        private SoundEffect menuSelectSound;
 
         private readonly List<MenuEntry> _menuEntries = new List<MenuEntry>();
         private int _selectedEntry;
@@ -54,6 +55,7 @@ namespace Archer.Screens
             if (content == null) content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             menuMoveSound = content.Load<SoundEffect>("menuSound");
+            menuSelectSound = content.Load<SoundEffect>("menuSelect");
         }
 
         // Responds to user input, changing the selected entry and accepting or cancelling the menu.
@@ -85,7 +87,10 @@ namespace Archer.Screens
             }
 
             if (_menuSelect.Occurred(input, ControllingPlayer, out playerIndex))
+            {
                 OnSelectEntry(_selectedEntry, playerIndex);
+                menuSelectSound.Play();
+            }
             else if (_menuCancel.Occurred(input, ControllingPlayer, out playerIndex))
                 OnCancel(playerIndex);
         }
