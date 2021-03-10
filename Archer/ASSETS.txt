@@ -15,3 +15,4 @@ Content/win.png - created by me using Cooltext.com (https://cooltext.com/)
 Content/beyond_wonderland.spritefont - created by Chris Hansen of 1001fonts.com (https://www.1001fonts.com/beyond-wonderland-font.html) and released under the public domain
 Content/haunting_music.mp3 - created by RutgerMuller of Freesound.org (https://freesound.org/people/RutgerMuller/sounds/51243/) and released under public domain
 Content/forest_sounds.mp3 - created by gregswinford of Freesound.org (https://freesound.org/people/gregswinford/sounds/70100/) and released under public domain
+Content/game_over_sound.wav - created by landlucky of Fresound.org (https://freesound.org/people/landlucky/sounds/277403/) and released under the Attribution License (https://creativecommons.org/licenses/by/3.0/). No changes were made

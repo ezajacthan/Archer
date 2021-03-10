@@ -10,6 +10,7 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/debug.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/fireball.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/forest_sounds.mp3</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/game_over_sound.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/game-over.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostDeath.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostIce_all.png</File>
@@ -28,6 +29,7 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/win.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

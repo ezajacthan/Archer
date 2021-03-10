@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using Archer.StateManagement;
 
 namespace Archer.Screens
@@ -15,6 +16,7 @@ namespace Archer.Screens
         private Texture2D texture;
         private InputAction _exit;
         private InputAction _replay;
+        private SoundEffect gameOverSound;
 
 
         public DeathScreen()
@@ -29,6 +31,8 @@ namespace Archer.Screens
             {
                 contentManager = new ContentManager(ScreenManager.Game.Services, "Content");
                 texture = contentManager.Load<Texture2D>("game-over");
+                gameOverSound = contentManager.Load<SoundEffect>("game_over_sound");
+                gameOverSound.Play();
             }
         }
 
