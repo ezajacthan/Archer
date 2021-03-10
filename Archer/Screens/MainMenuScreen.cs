@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using Archer.StateManagement;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace Archer.Screens
 {
     public class MainMenuScreen : MenuScreen
     {
+        private ContentManager content;
+        private Song backgroundSong;
+
+        public override void Activate()
+        {
+            if (content == null) content = new ContentManager(ScreenManager.Game.Services, "Content");
+
+            backgroundSong = content.Load<Song>("haunting_music");
+            MediaPlayer.Play(backgroundSong);
+        }
+
         public MainMenuScreen() : base("Archer")
         {
             var playGameMenuEntry = new MenuEntry("Play");
@@ -23,8 +36,15 @@ namespace Archer.Screens
             MenuEntries.Add(exitMenuEntry);
         }
 
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            if (!otherScreenHasFocus && !coveredByOtherScreen && MediaPlayer.State != MediaState.Playing) MediaPlayer.Play(backgroundSong);
+        }
+
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            MediaPlayer.Stop();
             ScreenManager.AddScreen(new GameplayScreen(), null);
         }
 

@@ -63,6 +63,12 @@
 /processorParam:TextureFormat=Color
 /build:fireball.png
 
+#begin forest_sounds.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:forest_sounds.mp3
+
 #begin game-over.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -86,6 +92,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ghostIce_all.png
+
+#begin haunting_music.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:haunting_music.mp3
 
 #begin hero-attack-back-weapon.png
 /importer:TextureImporter

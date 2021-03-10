@@ -37,10 +37,11 @@ namespace Archer.Screens
             PlayerIndex player;
             if (_exit.Occurred(input, null, out player))
             {
-                ScreenManager.Game.Exit();
+                ScreenManager.RemoveScreen(this);
             }
             if (_replay.Occurred(input, null, out player))
             {
+                ScreenManager.RemoveScreen(this);
                 ScreenManager.AddScreen(new GameplayScreen(), null);
             }
         }
@@ -51,7 +52,7 @@ namespace Archer.Screens
             ScreenManager.SpriteBatch.Begin();
             ScreenManager.SpriteBatch.Draw(texture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);
             ScreenManager.SpriteBatch.DrawString(font, "Press Enter to play again", new Vector2(150, 270), Color.DarkGray);
-            ScreenManager.SpriteBatch.DrawString(font, "Press ESC to exit", new Vector2(210, 320), Color.DarkGray);
+            ScreenManager.SpriteBatch.DrawString(font, "Press ESC to return to menu", new Vector2(120, 320), Color.DarkGray);
             ScreenManager.SpriteBatch.End();
         }
     }

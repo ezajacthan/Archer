@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Archer.Screens;
 using Archer.StateManagement;
 
@@ -12,6 +13,12 @@ namespace Archer
         private readonly ScreenManager screenManager;
 
         public bool ShouldExit;
+
+        public Song MenuMusic { get; set; }
+
+        public Song GameMusic { get; set; }
+
+        public GameScreen CurrentScreen { get; set; }
 
         public ArcherGame()
         {
@@ -30,7 +37,9 @@ namespace Archer
 
         private void AddInitialScreens()
         {
-           screenManager.AddScreen(new MainMenuScreen(), null);
+            MainMenuScreen menuScreen = new MainMenuScreen();
+            CurrentScreen = menuScreen;
+            screenManager.AddScreen(menuScreen, null);
         }
 
         protected override void Initialize()
@@ -41,16 +50,12 @@ namespace Archer
 
         protected override void LoadContent()
         {
-
+            MediaPlayer.IsRepeating = true;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 

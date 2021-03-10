@@ -4,6 +4,8 @@ using System.Text;
 using Archer.StateManagement;
 using Archer.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Archer.Screens
 {
@@ -11,15 +13,15 @@ namespace Archer.Screens
     {
         private enum VolumeOptions
         {
-            Off,
-            Minimum,
-            Quiet,
-            Normal,
-            Loud,
-            Maximum,
+            Off = 0,
+            Minimum = 1,
+            Quiet = 2,
+            Normal = 3,
+            Loud = 4,
+            Maximum = 5,
         }
 
-        private VolumeOptions masterVolumeOption = VolumeOptions.Normal;
+        private VolumeOptions effectsVolumeOption = VolumeOptions.Normal;
         private VolumeOptions musicVolumeOption = VolumeOptions.Normal;
 
         private readonly MenuEntry mainVolumeMenuEntry;
@@ -30,10 +32,10 @@ namespace Archer.Screens
         {
             mainVolumeMenuEntry = new MenuEntry("");
             musicVolumeMenuEntry = new MenuEntry("");
-            exitMenuEntry = new MenuEntry("");
+            exitMenuEntry = new MenuEntry("Back to Main Menu");
             SetMenuEntryText();
 
-            mainVolumeMenuEntry.Selected += MasterVolumeEntrySelected;
+            mainVolumeMenuEntry.Selected += EffectsVolumeEntrySelected;
             musicVolumeMenuEntry.Selected += MusicMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
@@ -44,17 +46,20 @@ namespace Archer.Screens
 
         private void SetMenuEntryText()
         {
-            mainVolumeMenuEntry.Text = $"Master Volume: {masterVolumeOption}";
-            musicVolumeMenuEntry.Text = $"Master Volume: {musicVolumeOption}";
+            mainVolumeMenuEntry.Text = $"SFX Volume: {effectsVolumeOption}";
+            musicVolumeMenuEntry.Text = $"Music Volume: {musicVolumeOption}";
         }
 
-        private void MasterVolumeEntrySelected(object sender, PlayerIndexEventArgs e)
+        private void EffectsVolumeEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            masterVolumeOption++;
-            if (masterVolumeOption > VolumeOptions.Maximum)
+            effectsVolumeOption++;
+            if (effectsVolumeOption > VolumeOptions.Maximum)
             {
-                masterVolumeOption = 0;
+                effectsVolumeOption = 0;
             }
+            float volumeOption = (float)effectsVolumeOption;
+            float newVolume = (float)volumeOption / 5.0f;
+            SoundEffect.MasterVolume = newVolume;
             SetMenuEntryText();
         }
 
@@ -65,6 +70,9 @@ namespace Archer.Screens
             {
                 musicVolumeOption = 0;
             }
+            float volumeOption =(float)musicVolumeOption;
+            float newVolume = (float)volumeOption / 5.0f;
+            MediaPlayer.Volume = newVolume;
             SetMenuEntryText();
         }
 

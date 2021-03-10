@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using Archer.StateManagement;
 
@@ -17,6 +17,8 @@ namespace Archer.Screens
 
         private ArcherSprite archerSprite;
         private IceGhostSprite[] ghostSprites = new IceGhostSprite[3];
+
+        private Song backgroundSong;
 
         private bool isGameOver;
         private bool isWin;
@@ -42,6 +44,8 @@ namespace Archer.Screens
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             }
 
+            backgroundSong = content.Load<Song>("forest_sounds");
+            MediaPlayer.Play(backgroundSong);
             archerSprite.LoadContent(content);
             foreach (IceGhostSprite ghost in ghostSprites)
             {
@@ -115,11 +119,13 @@ namespace Archer.Screens
 
                     if(isWin)
                     {
+                        MediaPlayer.Stop();
                         ScreenManager.RemoveScreen(this);
                         ScreenManager.AddScreen(new WinScreen(), null);
                     }
                     if(isGameOver)
                     {
+                        MediaPlayer.Stop();
                         ScreenManager.RemoveScreen(this);
                         ScreenManager.AddScreen(new DeathScreen(), null);
                     }
