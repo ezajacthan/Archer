@@ -243,3 +243,9 @@
 /processorParam:TextureFormat=Color
 /build:win.png
 
+#begin win_screen_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:win_screen_sound.wav
+
