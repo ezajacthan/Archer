@@ -81,6 +81,12 @@
 /processorParam:TextureFormat=Color
 /build:game-over.png
 
+#begin ghostDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ghostDeath.wav
+
 #begin ghostIce_all.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -206,6 +212,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:hero-walk-side.png
+
+#begin menuSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:menuSound.wav
 
 #begin win.png
 /importer:TextureImporter

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using Archer.StateManagement;
 
 namespace Archer.Screens
@@ -11,6 +13,9 @@ namespace Archer.Screens
     // move up and down to select an entry, or cancel to back out of the screen.
     public abstract class MenuScreen : GameScreen
     {
+        private ContentManager content;
+        private SoundEffect menuMoveSound;
+
         private readonly List<MenuEntry> _menuEntries = new List<MenuEntry>();
         private int _selectedEntry;
         private readonly string _menuTitle;
@@ -44,6 +49,13 @@ namespace Archer.Screens
                 new[] { Keys.Back, Keys.Escape  }, true);
         }
 
+        public override void Activate()
+        {
+            if (content == null) content = new ContentManager(ScreenManager.Game.Services, "Content");
+
+            menuMoveSound = content.Load<SoundEffect>("menuSound");
+        }
+
         // Responds to user input, changing the selected entry and accepting or cancelling the menu.
         public override void HandleInput(GameTime gameTime, InputState input)
         {
@@ -56,6 +68,7 @@ namespace Archer.Screens
 
             if (_menuUp.Occurred(input, ControllingPlayer, out playerIndex))
             {
+                menuMoveSound.Play();
                 _selectedEntry--;
 
                 if (_selectedEntry < 0)
@@ -64,6 +77,7 @@ namespace Archer.Screens
 
             if (_menuDown.Occurred(input, ControllingPlayer, out playerIndex))
             {
+                menuMoveSound.Play();
                 _selectedEntry++;
 
                 if (_selectedEntry >= _menuEntries.Count)

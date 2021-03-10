@@ -15,6 +15,7 @@ namespace Archer.Screens
 
         public override void Activate()
         {
+            base.Activate();
             if (content == null) content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             backgroundSong = content.Load<Song>("haunting_music");
