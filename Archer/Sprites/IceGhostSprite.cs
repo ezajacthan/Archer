@@ -50,6 +50,7 @@ namespace Archer
         private short deathAnimFrame;
 
         private SoundEffect fireballSound;
+        private SoundEffect ghostDeathSound;
         public FireballSprite Fireball;
         private Texture2D fireballTexture;
         private bool didShoot;
@@ -88,6 +89,7 @@ namespace Archer
             fireballTexture = content.Load<Texture2D>("fireball");
             drawTexture = content.Load<Texture2D>("ghostIce_all");
             fireballSound = content.Load<SoundEffect>("ghostFireball");
+            ghostDeathSound = content.Load<SoundEffect>("ghostDeath");
             debugTexture = content.Load<Texture2D>("debug");
         }
 
@@ -102,6 +104,7 @@ namespace Archer
             {
                 currAction = GhostAction.Death;
                 source = deathSource;
+                ghostDeathSound.Play();
                 IsHit = false;
             }
             decisionTimer += gameTime.ElapsedGameTime.TotalSeconds;
