@@ -12,3 +12,6 @@ Content/fireball.png - created by djantosh10 of OpenGameArt (https://opengameart
 Content/ghostIce_all.png - created by LetargicDev of OpenGameArt (https://opengameart.org/content/ghost-animated) and released under the public domain
 Content/game-over.png - created by Angry Amish of OpenGameArt (https://opengameart.org/content/game-over-screen) and released under the public domain
 Content/win.png - created by me using Cooltext.com (https://cooltext.com/)
+Content/beyond_wonderland.spritefont - created by Chris Hansen of 1001fonts.com (https://www.1001fonts.com/beyond-wonderland-font.html) and released under the public domain
+Content/haunting_music.mp3 - created by RutgerMuller of Freesound.org (https://freesound.org/people/RutgerMuller/sounds/51243/) and released under public domain
+Content/forest_sounds.mp3 - created by gregswinford of Freesound.org (https://freesound.org/people/gregswinford/sounds/70100/) and released under public domain
