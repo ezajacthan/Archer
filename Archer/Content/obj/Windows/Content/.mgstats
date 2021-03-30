@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/forest_sounds.mp3","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/Content/forest_sounds.xnb","SongProcessor","SongContent",17808154,131,9.142696
+"C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ground_grass_gen_08.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/Content/ground_grass_gen_08.xnb","TextureProcessor","Texture2DContent",2429142,4194389,0.6012664
+"C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/spooky_trees.png","C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/Content/spooky_trees.xnb","TextureProcessor","Texture2DContent",6374,140981,0.2614284

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/haunting_music.mp3</SourceFile>
+  <SourceTime>2021-03-09T18:53:39.1180598-06:00</SourceTime>
+  <DestFile>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/Content/haunting_music.xnb</DestFile>
+  <DestTime>2021-03-28T14:10:52.7805356-05:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2020-08-10T16:17:54-05:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2020-08-10T16:17:54-05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/bin/Windows/Content/haunting_music.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>

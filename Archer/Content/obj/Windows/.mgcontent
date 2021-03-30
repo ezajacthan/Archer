@@ -14,6 +14,7 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/game-over.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostDeath.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ghostIce_all.png</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/ground_grass_gen_08.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/haunting_music.mp3</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-back-weapon.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-attack-front-weapon.png</File>
@@ -26,10 +27,13 @@
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/hero-walk-side.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/menuSelect.wav</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/menuSound.wav</File>
+    <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/spooky_trees.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/win.png</File>
     <File>C:/Users/Ethan/Desktop/CIS580/Games/Archer/Archer/Archer/Archer/Content/win_screen_sound.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

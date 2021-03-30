@@ -38,8 +38,10 @@ namespace Archer
         private void AddInitialScreens()
         {
             MainMenuScreen menuScreen = new MainMenuScreen();
-            CurrentScreen = menuScreen;
-            screenManager.AddScreen(menuScreen, null);
+            DebugScreen debugScreen = new DebugScreen();
+            GameScreen currScreen = menuScreen;
+            CurrentScreen = currScreen;
+            screenManager.AddScreen(currScreen, null);
         }
 
         protected override void Initialize()

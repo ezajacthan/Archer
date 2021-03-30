@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using Archer.StateManagement;
+using Archer.Sprites;
 
 
 namespace Archer.Screens
@@ -17,6 +18,7 @@ namespace Archer.Screens
 
         private ArcherSprite archerSprite;
         private IceGhostSprite[] ghostSprites = new IceGhostSprite[3];
+        private GrassTexture grassTexture;
 
         private Song backgroundSong;
 
@@ -51,6 +53,7 @@ namespace Archer.Screens
             {
                 ghost.LoadContent(content);
             }
+            grassTexture = new GrassTexture(content.Load<Texture2D>("ground_grass_gen_08"));
         }
 
         public override void Unload()
@@ -144,6 +147,7 @@ namespace Archer.Screens
             ScreenManager.GraphicsDevice.Clear(Color.ForestGreen);
 
             _spriteBatch.Begin();
+            grassTexture.Draw(_spriteBatch);
             foreach (IceGhostSprite ghost in ghostSprites)
             {
                 if (!ghost.IsDead)
