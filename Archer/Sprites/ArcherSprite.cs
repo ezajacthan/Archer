@@ -210,8 +210,8 @@ namespace Archer
             {
                 //remove off-screen arrows
                 Vector2 currArrowPos = Arrows.Peek().Position;
-                if (currArrowPos.X < 0 || currArrowPos.X > 800
-                    || currArrowPos.Y < 0 || currArrowPos.Y > 480 || didHit)
+                if (currArrowPos.X < -50 || currArrowPos.X > 3000
+                    || currArrowPos.Y < -50 || currArrowPos.Y > 3000 || didHit)
                 {
                     Arrows.Dequeue();
                     if (Arrows.Count == 0)

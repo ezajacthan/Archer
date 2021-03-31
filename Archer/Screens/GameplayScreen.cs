@@ -78,18 +78,18 @@ namespace Archer.Screens
                         }
                     }
 
-                    if (archerSprite.Position.X > Constants.GAME_WIDTH - 20) archerSprite.Position.X = Constants.GAME_WIDTH - 20;
-                    if (archerSprite.Position.X < 20) archerSprite.Position.X = 20;
-                    if (archerSprite.Position.Y > Constants.GAME_HEIGHT - 40) archerSprite.Position.Y = Constants.GAME_HEIGHT - 40;
-                    if (archerSprite.Position.Y < 20) archerSprite.Position.Y = 20;
+                    if (archerSprite.Position.X > Constants.PLAYER_GAME_WIDTH) archerSprite.Position.X = Constants.PLAYER_GAME_WIDTH;
+                    if (archerSprite.Position.X < 0) archerSprite.Position.X = 0;
+                    if (archerSprite.Position.Y > Constants.PLAYER_GAME_HEIGHT) archerSprite.Position.Y = Constants.PLAYER_GAME_HEIGHT;
+                    if (archerSprite.Position.Y < 0) archerSprite.Position.Y = 0;
 
-                    foreach (IceGhostSprite ghost in ghostSprites)
-                    {
-                        if (ghost.Position.X > Constants.GAME_WIDTH - 20) ghost.Position.X = Constants.GAME_WIDTH - 20;
-                        if (ghost.Position.X < 20) ghost.Position.X = 20;
-                        if (ghost.Position.Y > Constants.GAME_HEIGHT - 60) ghost.Position.Y = Constants.GAME_HEIGHT - 60;
-                        if (ghost.Position.Y < 20) ghost.Position.Y = 20;
-                    }
+                    /* foreach (IceGhostSprite ghost in ghostSprites)
+                     {
+                         if (ghost.Position.X > Constants.GAME_WIDTH - 20) ghost.Position.X = Constants.GAME_WIDTH - 20;
+                         if (ghost.Position.X < 20) ghost.Position.X = 20;
+                         if (ghost.Position.Y > Constants.GAME_HEIGHT - 60) ghost.Position.Y = Constants.GAME_HEIGHT - 60;
+                         if (ghost.Position.Y < 20) ghost.Position.Y = 20;
+                     }*/
 
                     foreach (ArrowSprite arrow in archerSprite.Arrows)
                     {
@@ -144,9 +144,17 @@ namespace Archer.Screens
         public override void Draw(GameTime gameTime)
         {
             var _spriteBatch = ScreenManager.SpriteBatch;
-            ScreenManager.GraphicsDevice.Clear(Color.ForestGreen);
+            ScreenManager.GraphicsDevice.Clear(Color.Blue);
 
-            _spriteBatch.Begin();
+            //calculate offset vector
+            Vector2 offset = new Vector2(200, 200);
+            offset -= archerSprite.Position;
+            offset.X = MathHelper.Clamp(offset.X, -1248, 0);
+            offset.Y = MathHelper.Clamp(offset.Y, -1568, 0);
+
+            Matrix transform = Matrix.CreateTranslation(offset.X, offset.Y, 0);
+
+            _spriteBatch.Begin(transformMatrix: transform);
             grassTexture.Draw(_spriteBatch);
             foreach (IceGhostSprite ghost in ghostSprites)
             {

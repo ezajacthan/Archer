@@ -12,11 +12,11 @@ namespace Archer
         /// <summary>
         /// Width of the game world
         /// </summary>
-        public static int GAME_WIDTH = 800;
+        public static int PLAYER_GAME_WIDTH = 2025;
 
         /// <summary>
         /// Height of the game world
         /// </summary>
-        public static int GAME_HEIGHT = 400;
+        public static int PLAYER_GAME_HEIGHT = 2013;
     }
 }
