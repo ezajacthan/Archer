@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Archer.StateManagement;
+using Archer.Particles;
 
 namespace Archer.Screens
 {
@@ -17,6 +18,7 @@ namespace Archer.Screens
         private InputAction _exit;
         private InputAction _replay;
         private SoundEffect gameOverSound;
+        private BloodParticleSystem blood;
 
 
         public DeathScreen()
@@ -31,6 +33,8 @@ namespace Archer.Screens
             {
                 contentManager = new ContentManager(ScreenManager.Game.Services, "Content");
                 texture = contentManager.Load<Texture2D>("game-over");
+                blood = new BloodParticleSystem(ScreenManager.Game, new Rectangle(100, -20, 500, 10));
+                ScreenManager.Game.Components.Add(blood);
                 gameOverSound = contentManager.Load<SoundEffect>("game_over_sound");
                 gameOverSound.Play();
             }
@@ -41,6 +45,7 @@ namespace Archer.Screens
             PlayerIndex player;
             if (_exit.Occurred(input, null, out player))
             {
+                ScreenManager.Game.Components.Remove(blood);
                 ScreenManager.RemoveScreen(this);
             }
             if (_replay.Occurred(input, null, out player))
@@ -52,6 +57,8 @@ namespace Archer.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            ScreenManager.GraphicsDevice.Clear(Color.Black);
+
             var font = ScreenManager.Font;
             ScreenManager.SpriteBatch.Begin();
             ScreenManager.SpriteBatch.Draw(texture, new Rectangle(300, 150, 200, 100), Color.ForestGreen);

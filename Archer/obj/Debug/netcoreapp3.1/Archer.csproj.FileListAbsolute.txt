@@ -62,3 +62,4 @@ C:\Users\Ethan\Desktop\CIS580\Games\Archer\Archer\Archer\Archer\bin\Debug\netcor
 C:\Users\Ethan\Desktop\CIS580\Games\Archer\Archer\Archer\Archer\bin\Debug\netcoreapp3.1\Content\win_screen_sound.xnb
 C:\Users\Ethan\Desktop\CIS580\Games\Archer\Archer\Archer\Archer\bin\Debug\netcoreapp3.1\Content\spooky_trees.xnb
 C:\Users\Ethan\Desktop\CIS580\Games\Archer\Archer\Archer\Archer\bin\Debug\netcoreapp3.1\Content\ground_grass_gen_08.xnb
+C:\Users\Ethan\Desktop\CIS580\Games\Archer\Archer\Archer\Archer\bin\Debug\netcoreapp3.1\Content\drop.xnb
