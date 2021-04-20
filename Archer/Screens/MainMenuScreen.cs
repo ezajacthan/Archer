@@ -47,6 +47,7 @@ namespace Archer.Screens
         {
             MediaPlayer.Stop();
             ScreenManager.AddScreen(new GameplayScreen(), null);
+            ScreenManager.AddScreen(new ControlsScreen(), null);
         }
 
         private void OptionsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
