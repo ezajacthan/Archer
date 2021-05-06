@@ -83,13 +83,13 @@ namespace Archer.Screens
                     if (archerSprite.Position.Y > Constants.PLAYER_GAME_HEIGHT) archerSprite.Position.Y = Constants.PLAYER_GAME_HEIGHT;
                     if (archerSprite.Position.Y < 0) archerSprite.Position.Y = 0;
 
-                    /* foreach (IceGhostSprite ghost in ghostSprites)
-                     {
-                         if (ghost.Position.X > Constants.GAME_WIDTH - 20) ghost.Position.X = Constants.GAME_WIDTH - 20;
-                         if (ghost.Position.X < 20) ghost.Position.X = 20;
-                         if (ghost.Position.Y > Constants.GAME_HEIGHT - 60) ghost.Position.Y = Constants.GAME_HEIGHT - 60;
-                         if (ghost.Position.Y < 20) ghost.Position.Y = 20;
-                     }*/
+                    foreach (IceGhostSprite ghost in ghostSprites)
+                    {
+                        if (ghost.Position.X > 2000) ghost.Position.X = 2000;
+                        if (ghost.Position.X < 20) ghost.Position.X = 20;
+                        if (ghost.Position.Y > 2000) ghost.Position.Y = 2000;
+                        if (ghost.Position.Y < 20) ghost.Position.Y = 20;
+                    }
 
                     foreach (ArrowSprite arrow in archerSprite.Arrows)
                     {
